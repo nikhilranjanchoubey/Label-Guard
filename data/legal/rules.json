@@ -1,0 +1,1033 @@
+[
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0001",
+    "internalRuleId": "LMPC-DECL-001",
+    "statutoryReference": "Rule 6(1)(a)",
+    "title": "Name and Complete Address of Manufacturer, Packer or Importer",
+    "titleHi": "निर्माता, पैकर या आयातक का नाम और पूरा पता",
+    "requirement": "Every package must bear a definite, plain and conspicuous declaration of the name and complete address of the manufacturer, or if the manufacturer is not the packer, both the manufacturer and packer. For imported packages, the name and complete address of the importer must be mentioned.",
+    "statutoryTextExcerpt": "Every package shall bear thereon or on label securely affixed thereto, a definite, plain and conspicuous declaration made in accordance with the provisions of this chapter as, to- (a) the name and address of the manufacturer, or where the manufacturer is not the packer, the name and address of the manufacturer and packer and for any imported package the name and address of the importer shall be mentioned.",
+    "interpretationNote": "LabelGuard verifies presence of either (i) manufacturer name and address, or (ii) importer name and address if marked as imported, or (iii) manufacturer and packer if distinct entities. For food items, FSSAI regulations may prescribe complementary requirements per Explanation III.",
+    "category": "MANUFACTURER_ORIGIN",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "exclusions": ["EXEMPT_UNDER_10G_OR_10ML_EXCEPT_TOBACCO"]
+    },
+    "conditions": [
+      {
+        "field": "MANUFACTURER_NAME",
+        "operator": "PRESENT",
+        "description": "Name of manufacturer or brand owner must be legibly declared."
+      },
+      {
+        "field": "MANUFACTURER_ADDRESS",
+        "operator": "PRESENT",
+        "description": "Full postal address of manufacturer or registered office must be declared."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Visual bounding box enclosing the manufacturer or packer block.",
+        "required": true,
+        "fieldKey": "MANUFACTURER_NAME"
+      },
+      {
+        "evidenceType": "NORMALIZED_TEXT",
+        "description": "Extracted textual representation of company name and physical address.",
+        "required": true,
+        "fieldKey": "MANUFACTURER_ADDRESS"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (a)",
+      "pageNumber": 10,
+      "gazetteNotification": "G.S.R. 202(E) amended vide G.S.R. 629(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) Amendment Rules, 2017",
+        "notificationNumber": "G.S.R. 629(E)",
+        "notificationDate": "2017-06-23",
+        "effectiveDate": "2018-01-01",
+        "affectedRule": "Rule 6(1)(a) Explanation III",
+        "changeSummary": "Aligned food package reference to Food Safety and Standards Act, 2006.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(x)_0_1732870750.pdf"
+      }
+    ],
+    "effectiveFrom": "2011-04-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0002",
+    "internalRuleId": "LMPC-DECL-002",
+    "statutoryReference": "Rule 6(1)(aa)",
+    "title": "Country of Origin on Imported Pre-Packaged Products",
+    "titleHi": "आयातित प्री-पैकेज्ड उत्पादों पर मूल देश (कंट्री ऑफ ओरिजिन)",
+    "requirement": "The name of the country of origin or manufacture or assembly in case of imported products shall be mentioned on the package.",
+    "statutoryTextExcerpt": "“(aa) The name of the country of origin or manufacture or assembly in case of imported products shall be mentioned on the package;”;",
+    "interpretationNote": "Mandatory for all imported packages. The country name must reflect the sovereign country of manufacture, assembly, or origin (e.g., 'Made in India', 'Country of Origin: Vietnam').",
+    "category": "MANUFACTURER_ORIGIN",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "importedOnly": true,
+      "exclusions": ["DOMESTIC_MANUFACTURE"]
+    },
+    "conditions": [
+      {
+        "field": "COUNTRY_OF_ORIGIN",
+        "operator": "PRESENT",
+        "description": "Country of origin must be declared for imported packaged products."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Visual bounding box highlighting country of origin text.",
+        "required": true,
+        "fieldKey": "COUNTRY_OF_ORIGIN"
+      },
+      {
+        "evidenceType": "NORMALIZED_TEXT",
+        "description": "Recognized sovereign country name string.",
+        "required": true,
+        "fieldKey": "COUNTRY_OF_ORIGIN"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (aa)",
+      "pageNumber": 11,
+      "gazetteNotification": "G.S.R. 629(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2017",
+        "notificationNumber": "G.S.R. 629(E)",
+        "notificationDate": "2017-06-23",
+        "effectiveDate": "2018-01-01",
+        "affectedRule": "Rule 6(1)(aa)",
+        "changeSummary": "Inserted clause (aa) mandating declaration of country of origin or manufacture or assembly on imported commodities.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(x)_0_1732870750.pdf"
+      }
+    ],
+    "effectiveFrom": "2018-01-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0003",
+    "internalRuleId": "LMPC-DECL-003",
+    "statutoryReference": "Rule 6(1)(b)",
+    "title": "Common or Generic Names of the Commodity",
+    "titleHi": "वस्तु का सामान्य या जेनेरिक नाम",
+    "requirement": "The common or generic names of the commodity contained in the package must be declared. In case of packages containing more than one product, the name and number or quantity of each product shall be mentioned.",
+    "statutoryTextExcerpt": "(b) The common or generic names of the commodity contained in the package and in case of packages with more than one product, the name and number or quantity of each product shall be mentioned on the package.",
+    "interpretationNote": "A proprietary trade name or brand alone is not sufficient; the generic or descriptive identity (e.g. 'Whole Wheat Biscuits', 'Synthetic Detergent Powder') must be plain and conspicuous.",
+    "category": "PRODUCT_IDENTITY",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"]
+    },
+    "conditions": [
+      {
+        "field": "PRODUCT_NAME",
+        "operator": "PRESENT",
+        "description": "Common or generic name must be declared on the principal display panel."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Bounding box identifying the generic product nomenclature.",
+        "required": true,
+        "fieldKey": "PRODUCT_NAME"
+      },
+      {
+        "evidenceType": "NORMALIZED_TEXT",
+        "description": "Normalized product descriptor string.",
+        "required": true,
+        "fieldKey": "PRODUCT_NAME"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (b)",
+      "pageNumber": 11,
+      "gazetteNotification": "G.S.R. 202(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [],
+    "effectiveFrom": "2011-04-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0004",
+    "internalRuleId": "LMPC-DECL-004",
+    "statutoryReference": "Rule 6(1)(c)",
+    "title": "Net Quantity in Standard Metric Units of Weight, Measure or Count",
+    "titleHi": "वजन, माप या संख्या की मानक मीट्रिक इकाइयों में शुद्ध मात्रा",
+    "requirement": "The net quantity, in terms of the standard unit of weight or measure, of the commodity contained in the package, or where the commodity is packed or sold by number, the number of the commodity contained in the package shall be mentioned.",
+    "statutoryTextExcerpt": "(c) The net quantity, in terms of the standard unit of weight or measure, of the commodity contained in the package or where the commodity is packed or sold by number, the number of the commodity contained in the package shall be mentioned.",
+    "interpretationNote": "Must adhere to standard SI units (g, kg, ml, l, m, cm, or count 'N' / 'U'). Symbols must comply with Rule 13 (e.g., 'g' or 'kg', not 'gms' or 'kilos').",
+    "category": "NET_QUANTITY",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "exclusions": ["EXEMPT_UNDER_10G_OR_10ML_EXCEPT_TOBACCO"]
+    },
+    "conditions": [
+      {
+        "field": "NET_QUANTITY",
+        "operator": "PRESENT",
+        "description": "Net quantity value and standard unit must be declared."
+      },
+      {
+        "field": "QUANTITY_UNIT",
+        "operator": "REGEX",
+        "parameters": {
+          "regex": "^(g|kg|ml|l|L|m|cm|mm|N|U|units|pieces)$"
+        },
+        "description": "Unit must be an approved standard metric representation."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Bounding box identifying the net quantity declaration.",
+        "required": true,
+        "fieldKey": "NET_QUANTITY"
+      },
+      {
+        "evidenceType": "NUMERIC_VALUE",
+        "description": "Parsed numerical quantity and unit.",
+        "required": true,
+        "fieldKey": "NET_QUANTITY"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (c)",
+      "pageNumber": 11,
+      "gazetteNotification": "G.S.R. 202(E) read with Rules 11, 12, 13",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [],
+    "effectiveFrom": "2011-04-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0005",
+    "internalRuleId": "LMPC-DECL-005",
+    "statutoryReference": "Rule 6(1)(d)",
+    "title": "Month and Year of Manufacture",
+    "titleHi": "निर्माण का माह और वर्ष",
+    "requirement": "The month and year in which the commodity is manufactured shall be mentioned on the package.",
+    "statutoryTextExcerpt": "(d) The month and year in which the commodity is manufactured shall be mentioned in the package: Provided that for packages containing food articles, the provisions of the Food Safety and Standards Act, 2006 and the rules made thereunder shall apply.",
+    "interpretationNote": "Under GSR 779(E) w.e.f. 01.10.2022 (extended by GSR 226(E)), the words 'or pre-packed or imported' were omitted. Packages manufactured from October 1, 2022 onwards must specifically state the month and year of manufacture. Expressed either in words (e.g. 'OCT 2025') or numerals ('10/2025').",
+    "category": "DATES",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "exclusions": [
+        "BIDI_OR_INCENSE_STICKS",
+        "DOMESTIC_LPG_CYLINDERS_PSU",
+        "SEEDS_UNDER_SEEDS_ACT_1966"
+      ]
+    },
+    "conditions": [
+      {
+        "field": "MANUFACTURE_DATE",
+        "operator": "PRESENT",
+        "description": "Legible month and year of manufacture must be printed on package."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Visual bounding box enclosing manufacturing date declaration.",
+        "required": true,
+        "fieldKey": "MANUFACTURE_DATE"
+      },
+      {
+        "evidenceType": "DATE_FORMAT",
+        "description": "Valid MM/YYYY, Month YYYY, or ISO date format.",
+        "required": true,
+        "fieldKey": "MANUFACTURE_DATE"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (d)",
+      "pageNumber": 11,
+      "gazetteNotification": "G.S.R. 202(E) amended vide G.S.R. 779(E) & G.S.R. 226(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2021",
+        "notificationNumber": "G.S.R. 779(E)",
+        "notificationDate": "2021-11-02",
+        "effectiveDate": "2022-10-01",
+        "affectedRule": "Rule 6(1)(d)",
+        "changeSummary": "Omitted the words 'or pre-packed or imported', requiring unambiguous declaration of month and year of manufacture.",
+        "sourceUrl": "https://consumeraffairs.gov.in/public/upload/files/230946_1732871433.pdf"
+      },
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2022",
+        "notificationNumber": "G.S.R. 226(E)",
+        "notificationDate": "2022-03-28",
+        "effectiveDate": "2022-10-01",
+        "affectedRule": "Rule 6(1)(d)",
+        "changeSummary": "Extended implementation of GSR 779(E) to 1st October 2022.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/GSR226_1732871458.pdf"
+      }
+    ],
+    "effectiveFrom": "2022-10-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0006",
+    "internalRuleId": "LMPC-DECL-006",
+    "statutoryReference": "Rule 6(1)(da)",
+    "title": "Best Before or Use By Date for Perishable Commodities",
+    "titleHi": "खराब होने वाली वस्तुओं के लिए 'बेस्ट बिफोर' या 'यूज़ बाय' तिथि",
+    "requirement": "If a package contains a commodity which may become unfit for human consumption after a period of time, the 'best before or use by the date, month and year' shall also be mentioned on the label.",
+    "statutoryTextExcerpt": "“(da) If a package contains a commodity which may become unfit for human consumption after a period of time, the ‘best before or use by the date, month and year’ shall also be mentioned on the label: Provided that nothing in this clause shall apply if a provision in this regard is made in any other law.”",
+    "interpretationNote": "Applies to perishable consumables. Where governed by Food Safety and Standards (Packaging and Labelling) Regulations, 2011 / 2020, FSSAI specific format compliance applies.",
+    "category": "DATES",
+    "severity": "MAJOR",
+    "applicability": {
+      "productCategories": ["FOOD", "PERISHABLES", "COSMETICS_WITH_SHELF_LIFE"]
+    },
+    "conditions": [
+      {
+        "field": "EXPIRY_DATE",
+        "operator": "PRESENT",
+        "description": "Best before, use by, or expiry date must be present on perishable packages."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Visual bounding box enclosing Best Before or Expiry date.",
+        "required": true,
+        "fieldKey": "EXPIRY_DATE"
+      },
+      {
+        "evidenceType": "DATE_FORMAT",
+        "description": "Parsed calendar expiration date.",
+        "required": true,
+        "fieldKey": "EXPIRY_DATE"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (da)",
+      "pageNumber": 12,
+      "gazetteNotification": "G.S.R. 629(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2017",
+        "notificationNumber": "G.S.R. 629(E)",
+        "notificationDate": "2017-06-23",
+        "effectiveDate": "2018-01-01",
+        "affectedRule": "Rule 6(1)(da)",
+        "changeSummary": "Inserted clause (da) mandating 'best before' or 'use by' date for consumables.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(x)_0_1732870750.pdf"
+      }
+    ],
+    "effectiveFrom": "2018-01-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0007",
+    "internalRuleId": "LMPC-DECL-007",
+    "statutoryReference": "Rule 6(1)(e)",
+    "title": "Maximum Retail Price (MRP) in Indian Currency Inclusive of All Taxes",
+    "titleHi": "अधिकतम खुदरा मूल्य (एमआरपी) भारतीय मुद्रा में सभी करों सहित",
+    "requirement": "The retail sale price of the package shall clearly indicate that it is the maximum retail price inclusive of all taxes in Indian currency.",
+    "statutoryTextExcerpt": "(e) the retail sale price of the package; “shall clearly indicate that it is the maximum retail price inclusive of all taxes in Indian currency”",
+    "interpretationNote": "Must include statutory prefix: 'MRP', 'Maximum Retail Price', or 'Max. Retail Price', followed by the price in Indian currency (₹ / Rs.), and accompanied by 'inclusive of all taxes' or 'incl. of all taxes'.",
+    "category": "PRICING",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "exclusions": [
+        "PACKAGES_CONTAINING_BIDI",
+        "LPG_CYLINDERS_ADMINISTERED_PRICE",
+        "EXEMPT_UNDER_10G_OR_10ML_EXCEPT_TOBACCO"
+      ]
+    },
+    "conditions": [
+      {
+        "field": "MRP",
+        "operator": "PRESENT",
+        "description": "Retail sale price amount must be declared."
+      },
+      {
+        "field": "TAX_WORDING",
+        "operator": "PRESENT",
+        "description": "Statutory wording indicating inclusive of all taxes must accompany retail price."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Visual bounding box enclosing the full MRP and tax phrase.",
+        "required": true,
+        "fieldKey": "MRP"
+      },
+      {
+        "evidenceType": "NUMERIC_VALUE",
+        "description": "Parsed numerical retail price value in INR.",
+        "required": true,
+        "fieldKey": "MRP"
+      },
+      {
+        "evidenceType": "NORMALIZED_TEXT",
+        "description": "Inclusive tax phrase verification string.",
+        "required": true,
+        "fieldKey": "TAX_WORDING"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (e)",
+      "pageNumber": 12,
+      "gazetteNotification": "G.S.R. 202(E) amended vide G.S.R. 629(E) & G.S.R. 779(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2017",
+        "notificationNumber": "G.S.R. 629(E)",
+        "notificationDate": "2017-06-23",
+        "effectiveDate": "2018-01-01",
+        "affectedRule": "Rule 6(1)(e)",
+        "changeSummary": "Mandated explicit declaration that price is MRP inclusive of all taxes in Indian currency.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(x)_0_1732870750.pdf"
+      },
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2021",
+        "notificationNumber": "G.S.R. 779(E)",
+        "notificationDate": "2021-11-02",
+        "effectiveDate": "2022-10-01",
+        "affectedRule": "Rule 6(1)(e)",
+        "changeSummary": "Simplified Indian currency representation requirement.",
+        "sourceUrl": "https://consumeraffairs.gov.in/public/upload/files/230946_1732871433.pdf"
+      }
+    ],
+    "effectiveFrom": "2011-04-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0008",
+    "internalRuleId": "LMPC-DECL-008",
+    "statutoryReference": "Rule 6(11)",
+    "title": "Unit Sale Price (USP) Declaration on Pre-Packaged Commodities",
+    "titleHi": "प्री-पैकेज्ड वस्तुओं पर इकाई विक्रय मूल्य (यूनिट सेल प्राइस) की घोषणा",
+    "requirement": "The unit sale price in rupees, rounded off to the nearest two decimal places, shall be declared on every pre-packaged commodity in terms of: per gram (if < 1kg) or per kg (if > 1kg); per ml (if < 1L) or per litre (if > 1L); per cm (if < 1m) or per metre (if > 1m); per number or unit. Not required where retail price equals unit price.",
+    "statutoryTextExcerpt": "“(11) The unit sale price in rupees, rounded off to the nearest two decimal place, shall be declared on every pre-packaged commodities in the following manner, namely:- (i) per gram where net quantity is less than one kilogram and per kilogram where net quantity is more than one kilogram; (ii) per centimeter where net length is less than one metre and per metre where net length is more than one metre; (iii) per mililitre where net volume is less than one litre and per litre where net volume is more than one litre; (iv) per number or unit if any item is sold by number or unit... Provided further that declaration of unit sale price is not required for the pre-packaged commodities in which retail sale price is equal to the unit sale price.”",
+    "interpretationNote": "Introduced by GSR 779(E) and amended by GSR 226(E). Enables consumers to compare prices across varying package volumes/weights.",
+    "category": "PRICING",
+    "severity": "MAJOR",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "exclusions": ["PACKAGES_WHERE_MRP_EQUALS_UNIT_PRICE"]
+    },
+    "conditions": [
+      {
+        "field": "PRICE_TEXT",
+        "operator": "PRESENT",
+        "description": "Unit sale price must be declared according to the applicable metric denomination."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Bounding box identifying unit sale price text (e.g., '₹ 0.25 / g').",
+        "required": true,
+        "fieldKey": "PRICE_TEXT"
+      },
+      {
+        "evidenceType": "NORMALIZED_TEXT",
+        "description": "Normalized unit sale price string.",
+        "required": true,
+        "fieldKey": "PRICE_TEXT"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (11)",
+      "pageNumber": 17,
+      "gazetteNotification": "G.S.R. 779(E) substituted vide G.S.R. 226(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2021",
+        "notificationNumber": "G.S.R. 779(E)",
+        "notificationDate": "2021-11-02",
+        "effectiveDate": "2022-10-01",
+        "affectedRule": "Rule 6(11)",
+        "changeSummary": "Introduced statutory mandate for declaration of unit sale price.",
+        "sourceUrl": "https://consumeraffairs.gov.in/public/upload/files/230946_1732871433.pdf"
+      },
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2022",
+        "notificationNumber": "G.S.R. 226(E)",
+        "notificationDate": "2022-03-28",
+        "effectiveDate": "2022-10-01",
+        "affectedRule": "Rule 6(11)",
+        "changeSummary": "Substituted sub-rule (11) clarifying unit rounding to nearest two decimal places and establishing 01.10.2022 enforcement date.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/GSR226_1732871458.pdf"
+      }
+    ],
+    "effectiveFrom": "2022-10-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0009",
+    "internalRuleId": "LMPC-DECL-009",
+    "statutoryReference": "Rule 6(2)",
+    "title": "Consumer Care Details (Helpline, Email, Physical Address)",
+    "titleHi": "उपभोक्ता सहायता विवरण (हेल्पलाइन, ईमेल, भौतिक पता)",
+    "requirement": "Every package shall bear the name, address, telephone number, and e-mail address of the person who can be or the office which can be contacted, in case of consumer complaints.",
+    "statutoryTextExcerpt": "*(2) Every package shall bear the name, address, telephone number, e-mail address of the person who can be or the office which can be contacted, in case of consumer complaints.",
+    "interpretationNote": "All four elements are statutory: (1) Contact designation/name, (2) Postal address, (3) Telephone/Helpline number, and (4) Valid E-mail address. Omitting the email or telephone number constitutes a non-declaration under Rule 6(2).",
+    "category": "CONSUMER_CARE",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "exclusions": ["EXEMPT_UNDER_10G_OR_10ML_EXCEPT_TOBACCO"]
+    },
+    "conditions": [
+      {
+        "field": "CONSUMER_CARE_PHONE",
+        "operator": "PRESENT",
+        "description": "Telephone or toll-free helpline number must be declared."
+      },
+      {
+        "field": "CONSUMER_CARE_EMAIL",
+        "operator": "PRESENT",
+        "description": "Functional consumer grievance e-mail address must be declared."
+      },
+      {
+        "field": "CONSUMER_CARE_ADDRESS",
+        "operator": "PRESENT",
+        "description": "Physical consumer redressal postal address or office must be declared."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "BOUNDING_BOX",
+        "description": "Visual bounding box enclosing consumer care section.",
+        "required": true,
+        "fieldKey": "CONSUMER_CARE_PHONE"
+      },
+      {
+        "evidenceType": "URL_OR_PHONE",
+        "description": "Extracted phone/email strings.",
+        "required": true,
+        "fieldKey": "CONSUMER_CARE_EMAIL"
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (2)",
+      "pageNumber": 14,
+      "gazetteNotification": "G.S.R. 385(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2015",
+        "notificationNumber": "G.S.R. 385(E)",
+        "notificationDate": "2015-05-14",
+        "effectiveDate": "2016-01-01",
+        "affectedRule": "Rule 6(2)",
+        "changeSummary": "Substituted sub-rule (2) making e-mail address mandatory alongside telephone number and postal address.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(vi)_0_1732861153.pdf"
+      }
+    ],
+    "effectiveFrom": "2016-01-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0010",
+    "internalRuleId": "LMPC-DECL-010",
+    "statutoryReference": "Rule 6(1)(f)",
+    "title": "Dimensions of the Commodity Where Sizes are Relevant",
+    "titleHi": "वस्तु के आयाम (डायमेंशन्स) जहाँ आकार प्रासंगिक हों",
+    "requirement": "Where the sizes of the commodity contained in the package are relevant, the dimensions of the commodity contained in the package, and if the dimensions of different pieces are different, the dimensions of each such different piece shall be mentioned.",
+    "statutoryTextExcerpt": "(f) Where the sizes of the commodity contained in the package are relevant, the dimensions of the commodity contained in the package and if the dimensions of the different pieces are different, the dimensions of each such different piece shall be mentioned.",
+    "interpretationNote": "Applies to textiles, garments, utensils, footwear, sheets, or dimensional items where consumer utility depends directly on physical length, breadth, or diameter.",
+    "category": "DISPLAY_SPECIFICATION",
+    "severity": "MAJOR",
+    "applicability": {
+      "productCategories": ["TEXTILES_GARMENTS", "FOOTWEAR", "UTENSILS", "FURNITURE_FITMENTS", "SHEET_MATERIALS"]
+    },
+    "conditions": [
+      {
+        "field": "OTHER_DECLARATION",
+        "operator": "PRESENT",
+        "description": "Dimensions in standard metric length/area units must be declared."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "NORMALIZED_TEXT",
+        "description": "Dimensional measurement string (e.g., '100 cm x 150 cm').",
+        "required": true
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (f)",
+      "pageNumber": 13,
+      "gazetteNotification": "G.S.R. 202(E) read with Rule 14",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [],
+    "effectiveFrom": "2011-04-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0011",
+    "internalRuleId": "LMPC-DECL-011",
+    "statutoryReference": "Rule 6(10)",
+    "title": "Mandatory Digital Declarations on E-Commerce Networks",
+    "titleHi": "ई-कॉमर्स नेटवर्क पर अनिवार्य डिजिटल घोषणाएं",
+    "requirement": "An e-commerce entity shall ensure that the mandatory declarations as specified in sub-rule (1), except the month and year in which the commodity is manufactured or packed, shall be displayed on the digital and electronic network used for e-commerce transactions.",
+    "statutoryTextExcerpt": "*(10) An E-Commerce entity shall ensure that the mandatory declarations as specified in sub-rule (1), except the month and year in which the commodity is manufactured or packed, shall be displayed on the digital and electronic network used for e-commerce transactions: Provided that in case of market place model of e-commerce, responsibility of the correctness of declarations shall lie with the manufacturer or seller or dealer or importer...",
+    "interpretationNote": "E-commerce product detail pages (PDP) must display: generic name, manufacturer/importer identity, net quantity, MRP, country of origin, and consumer care details. Month/year of manufacturing is expressly exempted on digital display.",
+    "category": "ECOMMERCE",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "ecommerceOnly": true
+    },
+    "conditions": [
+      {
+        "field": "PRODUCT_NAME",
+        "operator": "PRESENT",
+        "description": "Generic name must be displayed on digital listing."
+      },
+      {
+        "field": "MRP",
+        "operator": "PRESENT",
+        "description": "Retail price inclusive of taxes must be displayed on digital listing."
+      },
+      {
+        "field": "NET_QUANTITY",
+        "operator": "PRESENT",
+        "description": "Net quantity must be displayed on digital listing."
+      },
+      {
+        "field": "COUNTRY_OF_ORIGIN",
+        "operator": "PRESENT",
+        "description": "Country of origin must be displayed on digital listing."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "IMAGE_REGION",
+        "description": "Web screenshot or digital listing DOM capture.",
+        "required": true
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (10)",
+      "pageNumber": 16,
+      "gazetteNotification": "G.S.R. 629(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2017",
+        "notificationNumber": "G.S.R. 629(E)",
+        "notificationDate": "2017-06-23",
+        "effectiveDate": "2018-01-01",
+        "affectedRule": "Rule 6(10)",
+        "changeSummary": "Introduced digital declaration display requirements for e-commerce entities.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(x)_0_1732870750.pdf"
+      }
+    ],
+    "effectiveFrom": "2018-01-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0012",
+    "internalRuleId": "LMPC-DECL-012",
+    "statutoryReference": "Rule 6(10A)",
+    "title": "Searchable and Sortable Country of Origin Filter on E-Commerce Platforms",
+    "titleHi": "ई-कॉमर्स प्लेटफॉर्म पर मूल देश (कंट्री ऑफ ओरिजिन) का खोज एवं क्रमबद्ध करने योग्य फ़िल्टर",
+    "requirement": "Every e-commerce entity selling imported products shall provide the product listings of such imported products in a searchable and sortable filter specifying the country of origin.",
+    "statutoryTextExcerpt": "“(10A) Every e-commerce entity selling imported products shall provide the product listings of such imported products in a searchable and sortable filter specifying the country of origin.”",
+    "interpretationNote": "Enacted vide Gazette Notification G.S.R. 128(E) dated 13.02.2026, coming into force on 01.07.2026. Mandates UI faceted navigation allowing buyers to filter and sort imported products by country of origin.",
+    "category": "ECOMMERCE",
+    "severity": "MAJOR",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "ecommerceOnly": true,
+      "importedOnly": true
+    },
+    "conditions": [
+      {
+        "field": "COUNTRY_OF_ORIGIN",
+        "operator": "PRESENT",
+        "description": "E-commerce listing must provide searchable/sortable origin attribute."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "IMAGE_REGION",
+        "description": "Listing faceted navigation filter evidence.",
+        "required": true
+      }
+    ],
+    "source": {
+      "documentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2026",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/files/2026.02.13%20PCR%201st%20COO%20Filter%20on%20e-commerce%20websites_1771231030.pdf",
+      "section": "Rule 2 — Insertion of Sub-rule (10A)",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (10A)",
+      "pageNumber": 2,
+      "gazetteNotification": "G.S.R. 128(E)",
+      "notificationDate": "2026-02-13",
+      "isConsolidatedBook": false
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2026",
+        "notificationNumber": "G.S.R. 128(E)",
+        "notificationDate": "2026-02-13",
+        "effectiveDate": "2026-07-01",
+        "affectedRule": "Rule 6(10A)",
+        "changeSummary": "Inserted sub-rule (10A) mandating searchable and sortable country of origin filter on e-commerce marketplaces.",
+        "sourceUrl": "https://consumeraffairs.gov.in/public/upload/files/2026.02.13%20PCR%201st%20COO%20Filter%20on%20e-commerce%20websites_1771231030.pdf"
+      }
+    ],
+    "effectiveFrom": "2026-07-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0013",
+    "internalRuleId": "LMPC-DECL-013",
+    "statutoryReference": "Rule 7(2) read with Table-I",
+    "title": "Minimum Numeral and Letter Height on Principal Display Panel",
+    "titleHi": "मुख्य प्रदर्शन पैनल पर अंकों और अक्षरों की न्यूनतम ऊंचाई",
+    "requirement": "The height of any numeral and letter in the mandatory declaration on the principal display panel shall not be less than the minimum height specified in Table-I based on the area of the principal display panel (A): A <= 50 cm²: 1.0mm (blown/molded: 2.0mm); 50 < A <= 100 cm²: 1.5mm (blown/molded: 3.0mm); 100 < A <= 500 cm²: 2.5mm (blown/molded: 4.0mm); 500 < A <= 2500 cm²: 4.0mm (blown/molded: 6.0mm); A > 2500 cm²: 6.0mm (blown/molded: 6.0mm).",
+    "statutoryTextExcerpt": "“(2) The height of any numeral and letter in the declaration required under these rules shall be as per Table-I... Table-I: Area of Principal display panel in square centimeters (A), Minimum height of numerals and letters in millimeters: A <= 50 -> 1.0mm; 50 < A <= 100 -> 1.5mm; 100 < A <= 500 -> 2.5mm; 500 < A <= 2500 -> 4.0mm; 2500 < A -> 6.0mm.”",
+    "interpretationNote": "Width of numeral/letter must be at least one-third of its height (except for '1', 'i', 'I', 'l'). Ensures legibility to consumers.",
+    "category": "DISPLAY_SPECIFICATION",
+    "severity": "MAJOR",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "exclusions": ["PACKAGES_UNDER_10_CUBIC_CM_CARD_ATTACHED"]
+    },
+    "conditions": [
+      {
+        "field": "OTHER_DECLARATION",
+        "operator": "CUSTOM",
+        "parameters": {
+          "tableRef": "Table-I",
+          "minHeightThreshold": "1.0mm"
+        },
+        "description": "Font size must equal or exceed statutory millimeter thresholds for package panel area."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "IMAGE_REGION",
+        "description": "Pixel-to-millimeter calibrated optical measurement of declaration letters.",
+        "required": true
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 7",
+      "subRule": "Sub-rule (2)",
+      "pageNumber": 18,
+      "gazetteNotification": "G.S.R. 629(E) corrected vide G.S.R. 1373(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2017",
+        "notificationNumber": "G.S.R. 629(E)",
+        "notificationDate": "2017-06-23",
+        "effectiveDate": "2018-01-01",
+        "affectedRule": "Rule 7(2) and Table-I",
+        "changeSummary": "Standardized numeral and letter heights across Table-I based directly on Principal Display Panel area.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(x)_0_1732870750.pdf"
+      }
+    ],
+    "effectiveFrom": "2018-01-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0014",
+    "internalRuleId": "LMPC-DECL-014",
+    "statutoryReference": "Rule 6(3)",
+    "title": "Prohibition on Individual Alteration Stickers (Except for Lowering MRP)",
+    "titleHi": "व्यक्तिगत परिवर्तन स्टिकर का निषेध (एमआरपी घटाने को छोड़कर)",
+    "requirement": "It shall not be permissible to affix individual stickers on the package for altering or making declarations required under these rules. Provided that for reducing the Maximum Retail Price (MRP), a sticker with the revised lower MRP (inclusive of all taxes) may be affixed and the same shall not cover the original MRP declaration.",
+    "statutoryTextExcerpt": "(3) It shall not be permissible to affix individual stickers on the package for altering or making declaration required under these rules: Provided that for reducing the Maximum Retail Price (MRP), a sticker with the revised lower MRP (inclusive of all taxes) may be affixed and the same shall not cover the MRP declaration made by the manufacturer or the packer, as the case may be, on the label of the package.",
+    "interpretationNote": "Over-stickering or paste-overs to alter manufacturing dates, net quantity, or increase price is strictly prohibited. Only non-covering lower MRP discount stickers are lawful.",
+    "category": "DISPLAY_SPECIFICATION",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"]
+    },
+    "conditions": [
+      {
+        "field": "PRICE_TEXT",
+        "operator": "CUSTOM",
+        "parameters": {
+          "allowStickerOnlyIfLower": true
+        },
+        "description": "No stickers permitted to alter statutory declarations except for lower revised MRP."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "IMAGE_REGION",
+        "description": "Visual surface inspection for adhesive overlay stickers.",
+        "required": true
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter II — Packages Intended for Retail Sale",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (3)",
+      "pageNumber": 14,
+      "gazetteNotification": "G.S.R. 202(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [],
+    "effectiveFrom": "2011-04-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0015",
+    "internalRuleId": "LMPC-DECL-015",
+    "statutoryReference": "Rule 26(a)",
+    "title": "Statutory Exemption for Packages of Net Quantity 10g or 10ml or Less",
+    "titleHi": "10 ग्राम या 10 मिली या उससे कम शुद्ध मात्रा वाले पैकेटों के लिए वैधानिक छूट",
+    "requirement": "Nothing contained in these rules shall apply to any package containing a commodity if the net weight or measure of the commodity is ten gram or ten millilitre or less, if sold by weight or measure. Provided that the provisions of this clause shall not be applicable for tobacco and tobacco products.",
+    "statutoryTextExcerpt": "26. Exemption in respect of certain packages. -Nothing contained in these rules shall apply to any package containing a commodity if— (a) the net weight or measure of the commodity is ten gram or ten millilitre or less, if sold by weight or measure; Provided that the provisions of this clause shall not be applicable for tobacco and tobacco products.",
+    "interpretationNote": "Small sachet packages (e.g. single-use shampoo/sauce sachets <= 10g/ml) are exempted from general Chapter II declarations under Rule 26(a). Crucially, tobacco products (such as gutkha, khaini, bidis) are explicitly denied this exemption by GSR 385(E).",
+    "category": "EXEMPTION",
+    "severity": "INFORMATIONAL",
+    "applicability": {
+      "productCategories": ["ALL"],
+      "maxNetQuantity": { "value": 10, "unit": "g" },
+      "exclusions": ["TOBACCO_AND_TOBACCO_PRODUCTS"]
+    },
+    "conditions": [
+      {
+        "field": "NET_QUANTITY",
+        "operator": "LESS_THAN",
+        "expectedValue": 10,
+        "description": "Package net quantity is equal to or less than 10g or 10ml."
+      }
+    ],
+    "evidenceRequirements": [
+      {
+        "evidenceType": "NUMERIC_VALUE",
+        "description": "Net weight verification <= 10g/10ml.",
+        "required": true
+      }
+    ],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 with all amendments",
+      "officialUrl": "https://consumeraffairs.gov.in/public/upload/admin/cmsfiles/whatsnews/Book_on_Legal_Metrology_Packaged_Commodities_Rules%2C2011_with_all_amendments_whatsnews.pdf",
+      "section": "Chapter V — Exemptions",
+      "ruleNumber": "Rule 26",
+      "clause": "Clause (a)",
+      "pageNumber": 34,
+      "gazetteNotification": "G.S.R. 202(E) amended vide G.S.R. 385(E)",
+      "isConsolidatedBook": true
+    },
+    "amendmentHistory": [
+      {
+        "amendmentTitle": "The Legal Metrology (Packaged Commodities) (Amendment) Rules, 2015",
+        "notificationNumber": "G.S.R. 385(E)",
+        "notificationDate": "2015-05-14",
+        "effectiveDate": "2016-07-01",
+        "affectedRule": "Rule 26(a)",
+        "changeSummary": "Inserted proviso that exemption shall not apply to tobacco and tobacco products.",
+        "sourceUrl": "http://consumeraffairs.gov.in/public/upload/files/8(vi)_0_1732861153.pdf"
+      }
+    ],
+    "effectiveFrom": "2016-07-01",
+    "status": "VERIFIED",
+    "verificationStatus": "VERIFIED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Verified Legal Corpus (DCA Publications)"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0098",
+    "internalRuleId": "LMPC-HIST-001",
+    "statutoryReference": "Rule 6(1)(d) [Pre-2022 Wording]",
+    "title": "Month and Year of Manufacture or Pre-packing or Import (SUPERSEDED)",
+    "titleHi": "निर्माण या प्री-पैकिंग या आयात का माह और वर्ष (प्रतिस्थापित)",
+    "requirement": "Pre-2022 wording allowed declaration of month and year in which commodity is manufactured, or alternatively pre-packed or imported.",
+    "statutoryTextExcerpt": "The month and year in which the commodity is manufactured or pre-packed or imported shall be mentioned in the package:",
+    "interpretationNote": "SUPERSEDED on 2022-10-01 by GSR 779(E) read with GSR 226(E), which omitted 'or pre-packed or imported' to avoid misleading ambiguity on production vintage.",
+    "category": "DATES",
+    "severity": "CRITICAL",
+    "applicability": {
+      "productCategories": ["ALL"]
+    },
+    "conditions": [
+      {
+        "field": "MANUFACTURE_DATE",
+        "operator": "PRESENT",
+        "description": "Historical rule requiring manufacture, pack, or import date."
+      }
+    ],
+    "evidenceRequirements": [],
+    "source": {
+      "documentTitle": "Legal Metrology Packaged Commodities Rules, 2011 (Principal Gazette)",
+      "officialUrl": "http://consumeraffairs.gov.in/public/upload/files/8_1732871406.pdf",
+      "ruleNumber": "Rule 6",
+      "subRule": "Sub-rule (1)",
+      "clause": "Clause (d)",
+      "pageNumber": 11,
+      "gazetteNotification": "G.S.R. 202(E)"
+    },
+    "amendmentHistory": [],
+    "effectiveFrom": "2011-04-01",
+    "effectiveTo": "2022-09-30",
+    "status": "SUPERSEDED",
+    "verificationStatus": "SUPERSEDED",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Legal Metrology Historical Corpus"
+  },
+  {
+    "id": "c1f1c7d2-0941-4796-98fa-1b48d28e0099",
+    "internalRuleId": "LMPC-REV-001",
+    "statutoryReference": "Rule 24 / State Circulars (Pending High Court Harmonization)",
+    "title": "Institutional Bulk Multi-Pack Outer Container Declarations (NEEDS REVIEW)",
+    "titleHi": "संस्थागत थोक मल्टी-पैक बाहरी कंटेनर घोषणाएं (समीक्षाधीन)",
+    "requirement": "Draft interpretation regarding whether outer shrink-wrap tertiary containers for non-retail transit packaging require individual MRP and net quantity declarations.",
+    "interpretationNote": "Subject to conflicting state department enforcement advisories and pending judicial clarification. Marked as NEEDS_REVIEW and strictly barred from automated compliance evaluation.",
+    "category": "DISPLAY_SPECIFICATION",
+    "severity": "MAJOR",
+    "applicability": {
+      "productCategories": ["BULK_INSTITUTIONAL"],
+      "packageTypes": ["TRANSIT_CONTAINER", "SECONDARY_BUNDLE"]
+    },
+    "conditions": [],
+    "evidenceRequirements": [],
+    "source": {
+      "documentTitle": "Advisory and Guidelines on Wholesale and Transit Packaging",
+      "officialUrl": "http://consumeraffairs.gov.in/public/upload/files/guidelines%20dt%2030_9_2011%20for%20PCR(1)_0%20(1)_1732860774.pdf",
+      "ruleNumber": "Rule 24",
+      "pageNumber": 33
+    },
+    "amendmentHistory": [],
+    "effectiveFrom": "2024-01-01",
+    "status": "NEEDS_REVIEW",
+    "verificationStatus": "NEEDS_REVIEW",
+    "lastVerifiedAt": "2026-09-11",
+    "verifiedBy": "Antigravity Legal Verification Stub (Awaiting Gazette Alignment)"
+  }
+]

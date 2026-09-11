@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 246 248 251;
+    --surface: 255 255 255;
+    --text-primary: 23 32 51;
+    --text-secondary: 100 116 139;
+    --primary-navy: 18 59 93;
+    --action-blue: 37 99 235;
+    --compliant-green: 21 128 61;
+    --warning-amber: 217 119 6;
+    --violation-red: 220 38 38;
+    --boundary: 226 232 240;
+  }
+
+  body {
+    background-color: #F6F8FB;
+    color: #172033;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    min-height: 100vh;
+  }
+}
+
+/* Custom scrollbar for data tables and panels */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* High contrast focus ring for accessibility */
+.focus-ring {
+  @apply focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-1;
+}
