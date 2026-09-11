@@ -107,6 +107,22 @@
   }
 
   /* 5. Prevent awkward breaks inside tables and key sections */
+  .labelguard-report-page {
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    min-height: 270mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .labelguard-report-page:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
   .break-inside-avoid,
   table,
   tr,
