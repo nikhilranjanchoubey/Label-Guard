@@ -86,9 +86,9 @@ export default function EvidencePage() {
               New Scan
             </Button>
           </Link>
-          <Link href="/analysis">
+          <Link href="/ocr">
             <Button variant="secondary" size="sm" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              Back to OCR Tokens
+              Back to OCR Pipeline
             </Button>
           </Link>
         </div>

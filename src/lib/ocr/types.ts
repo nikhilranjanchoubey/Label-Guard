@@ -6,7 +6,7 @@ export type OCRProcessingState =
   | "OCR_COMPLETE"
   | "ERROR";
 
-export type SurfaceType = "front" | "back" | "side" | "nutritional";
+export type SurfaceType = "front" | "back" | "side" | "top" | "bottom" | "nutritional";
 
 export interface BoundingBoxPercentage {
   x: number; // 0-100%

@@ -24,6 +24,29 @@ export default function InspectionsPage() {
     return matchesFilter && matchesSearch;
   });
 
+  const handleExportRegistryCsv = () => {
+    const escapeCsv = (str: string | undefined | null) => {
+      if (str === undefined || str === null) return '""';
+      return `"${String(str).replace(/"/g, '""')}"`;
+    };
+
+    let csvContent = "\uFEFF"; // UTF-8 BOM
+    csvContent += "Inspection ID,Commodity,Brand,Category,Inspection Date,OCR Confidence,Compliance Status,Verification Status,Verified By,Audit Hash\r\n";
+    filteredInspections.forEach((ins) => {
+      csvContent += `${escapeCsv(ins.id)},${escapeCsv(ins.productName)},${escapeCsv(ins.brand)},${escapeCsv(ins.category)},${escapeCsv(ins.inspectionDate)},${(ins.overallOcrConfidence * 100).toFixed(1)}%,${escapeCsv(ins.overallStatus)},${escapeCsv(ins.verificationStatus)},${escapeCsv(ins.verifiedBy || "N/A")},${escapeCsv(ins.auditHash)}\r\n`;
+    });
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `LabelGuard_Commodity_Registry_${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -33,7 +56,6 @@ export default function InspectionsPage() {
             <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
               {t("nav.inspections", "Inspection Registry")}
             </h1>
-            <Badge variant="demo" size="sm" />
           </div>
           <p className="text-xs text-slate-500 mt-1">
             Historical repository of evaluated packaged commodities and statutory audit records
@@ -93,7 +115,12 @@ export default function InspectionsPage() {
             <ClipboardList className="w-4 h-4 text-primary" />
             <CardTitle>Commodity Inspection Records ({filteredInspections.length})</CardTitle>
           </div>
-          <Button variant="outline" size="sm" leftIcon={<Download className="w-3.5 h-3.5" />}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleExportRegistryCsv}
+            leftIcon={<Download className="w-3.5 h-3.5" />}
+          >
             Export Registry (CSV)
           </Button>
         </CardHeader>

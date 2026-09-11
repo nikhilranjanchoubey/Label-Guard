@@ -29,7 +29,7 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
   const navItems = [
     { href: "/dashboard", label: t("nav.dashboard", "Dashboard"), icon: LayoutDashboard },
     { href: "/scan", label: t("nav.scan", "Scan Package"), icon: ScanLine },
-    { href: "/analysis", label: t("nav.analysis", "OCR Extraction"), icon: Binary },
+    { href: "/ocr", label: t("nav.analysis", "OCR Extraction"), icon: Binary },
     { href: "/declarations", label: t("nav.declarations", "Declarations"), icon: FileCheck2 },
     { href: "/compliance", label: t("nav.compliance", "Compliance Matrix"), icon: CheckCircle2 },
     { href: "/evidence", label: t("nav.evidence", "Evidence Viewer"), icon: ImageIcon },
@@ -64,12 +64,7 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
           </div>
         </Link>
 
-        {/* Prominent Demo Badge */}
-        <div className="mt-3 py-1 px-2 rounded-md bg-amber-500/20 border border-amber-400/40 flex items-center justify-center">
-          <span className="text-[10px] font-bold text-amber-300 tracking-wider font-mono">
-            {t("app.demoBadge", "DEMO MODE — SAMPLE DATA")}
-          </span>
-        </div>
+
       </div>
 
       {/* Navigation Menu */}

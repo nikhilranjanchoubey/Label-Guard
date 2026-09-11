@@ -97,8 +97,16 @@ ${JSON.stringify(ocrSummary, null, 2)}
       },
     });
 
-    const responseText = response.text || "{}";
-    const parsedData = JSON.parse(responseText);
+    let rawResponse = (response.text || "{}").trim();
+    if (rawResponse.startsWith("```json")) {
+      rawResponse = rawResponse.substring(7);
+    } else if (rawResponse.startsWith("```")) {
+      rawResponse = rawResponse.substring(3);
+    }
+    if (rawResponse.endsWith("```")) {
+      rawResponse = rawResponse.substring(0, rawResponse.length - 3);
+    }
+    const parsedData = JSON.parse(rawResponse.trim());
 
     // Map item IDs to bounding boxes from original OCR document
     const ocrItemMap = new Map<string, ExtractionResult>();
@@ -182,6 +190,7 @@ ${JSON.stringify(ocrSummary, null, 2)}
       overallExtractionConfidence: overallConf,
       extractionTimestamp: new Date().toISOString(),
       extractionEngine: `Gemini (${modelName}) + Spatial Linking`,
+      extractionSource: "GEMINI",
       category: parsedData.category || "Packaged Commodity",
       categoryConfidence: parsedData.categoryConfidence || 0.85,
       warnings: parsedData.warnings || [],
@@ -192,6 +201,7 @@ ${JSON.stringify(ocrSummary, null, 2)}
     console.error("[GeminiExtractor] Gemini call failed, falling back to local extractor:", errorMsg);
 
     const fallbackResult = extractDeclarationsFallback(ocrDocument, sourceType);
+    fallbackResult.extractionSource = "FALLBACK";
     fallbackResult.warnings.push(
       `Gemini extraction error: ${errorMsg}. Fallback bilingual extractor utilized.`
     );

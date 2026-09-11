@@ -380,7 +380,7 @@ export default function VerificationPage() {
         {/* Left 5 Columns: Interactive Evidence Viewer with Zoom/Pan/Rotate */}
         <div className="lg:col-span-5 space-y-4 sticky top-6">
           <EvidenceViewer
-            imageUrl="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=1000&q=80"
+            imageUrl={complianceResult.sourceImages?.[0] || "/demo/tata-salt-back.jpg"}
             productName={complianceResult.productName || "Packaged Commodity"}
             boxes={viewerBoxes}
             selectedBoxId={selectedBoxId}

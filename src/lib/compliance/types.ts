@@ -15,10 +15,13 @@ export type VerificationStatus =
   | "CONFIRMED_VIOLATION";
 
 export type DeclarationKey =
+  | "productName"
   | "mrp"
   | "netQuantity"
   | "mfgDate"
   | "expiryDate"
+  | "bestBefore"
+  | "batch"
   | "batchNumber"
   | "manufacturer"
   | "packer"
@@ -168,4 +171,5 @@ export interface ComplianceResult {
   auditHash: string; // Non-repudiation audit hash
   isDemo: boolean;
   disclaimer: string;
+  sourceImages?: string[];
 }

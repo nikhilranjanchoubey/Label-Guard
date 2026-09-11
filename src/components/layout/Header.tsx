@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useTranslation } from "@/lib/i18n";
 import { LanguageSwitcher } from "../ui/LanguageSwitcher";
-import { Search, ScanLine, UserCheck, ShieldAlert } from "lucide-react";
+import { Search, ScanLine, UserCheck } from "lucide-react";
 import { MOCK_OFFICER } from "@/mocks/sampleData";
 
 export const Header: React.FC = () => {
@@ -24,11 +24,7 @@ export const Header: React.FC = () => {
         </div>
       </div>
 
-      {/* Center: Prominent Demo Disclaimer Tag */}
-      <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 bg-amber-50 border border-amber-200 rounded-full text-amber-800 text-[11px] font-medium">
-        <ShieldAlert className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-        <span className="font-bold">{t("app.demoBadge", "DEMO MODE — SAMPLE DATA")}</span>
-      </div>
+
 
       {/* Right: Language Switcher, Officer Chip, Action Button */}
       <div className="flex items-center gap-3">

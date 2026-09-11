@@ -89,6 +89,7 @@ export interface DeclarationExtractionResult {
   overallExtractionConfidence: number;
   extractionTimestamp: string;
   extractionEngine: string;
+  extractionSource?: "GEMINI" | "FALLBACK";
   category: string;
   categoryConfidence: number;
   warnings: string[];

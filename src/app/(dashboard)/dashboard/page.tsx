@@ -208,11 +208,11 @@ export default function DashboardPage() {
             <CardContent className="space-y-3">
               <div className="p-3 rounded-lg border border-warning-border bg-warning-bg/50 space-y-1">
                 <div className="flex items-center justify-between text-xs font-semibold text-warning-text">
-                  <span>Anand Delights Atta Biscuits</span>
+                  <span>Tata Salt Vacuum Evaporated Iodised Salt</span>
                   <Badge variant="warning" size="sm">REVIEW</Badge>
                 </div>
                 <p className="text-[11px] text-slate-600">
-                  Unit Sale Price (USP) font height clarity ambiguous on packaging side.
+                  MRP &amp; Net Quantity value stamps require officer optical verification on back panel window.
                 </p>
                 <Link href="/verification" className="inline-block text-[11px] font-semibold text-action hover:underline mt-1">
                   Open in Verification Cockpit →

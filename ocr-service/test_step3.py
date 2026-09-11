@@ -1,5 +1,9 @@
+import sys
 import json
 import requests
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
 
 def test_step3_extraction():
     url = "http://localhost:3000/api/declarations/extract"
@@ -8,7 +12,7 @@ def test_step3_extraction():
     print("--- TEST 1: Real Mixed Hindi + English Package Scan ---")
     ocr_res = requests.post(
         "http://localhost:3000/api/ocr",
-        files={"file": ("sample.jpg", open("ocr-service/test_sample_package.jpg", "rb"), "image/jpeg")},
+        files={"file": ("sample.jpg", open("ocr-service/tata_salt_back.jpg", "rb"), "image/jpeg")},
         data={"surface": "back"}
     )
     assert ocr_res.status_code == 200, f"OCR failed: {ocr_res.text}"
@@ -38,8 +42,8 @@ def test_step3_extraction():
         "surface": "back",
         "results": [
             {"id": "o-1", "text": "MRP 5O.00", "confidence": 0.72, "language": "en", "boundingBox": {"x": 10, "y": 10, "width": 30, "height": 8}},
-            {"id": "o-2", "text": "शुद्ध मात्रा 500 ग्राम", "confidence": 0.98, "language": "hi", "boundingBox": {"x": 10, "y": 25, "width": 40, "height": 8}},
-            {"id": "o-3", "text": "निर्माता: आनंद फूड्स", "confidence": 0.95, "language": "hi", "boundingBox": {"x": 10, "y": 40, "width": 50, "height": 8}}
+            {"id": "o-2", "text": "शुद्ध मात्रा 1 किलोग्राम", "confidence": 0.98, "language": "hi", "boundingBox": {"x": 10, "y": 25, "width": 40, "height": 8}},
+            {"id": "o-3", "text": "निर्माता: टाटा केमिकल्स लिमिटेड", "confidence": 0.95, "language": "hi", "boundingBox": {"x": 10, "y": 40, "width": 50, "height": 8}}
         ]
     }
     ambig_res = requests.post(url, json={"ocrDocument": ambig_ocr})
