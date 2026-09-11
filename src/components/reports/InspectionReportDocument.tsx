@@ -49,7 +49,7 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
   return (
     <div
       id="labelguard-report-document"
-      className="max-w-[210mm] mx-auto bg-white text-slate-900 font-sans p-8 print:p-0 shadow-lg print:shadow-none border border-slate-200 print:border-none"
+      className="max-w-[210mm] w-full mx-auto bg-white text-slate-900 font-sans p-4 sm:p-8 print:p-0 shadow-lg print:shadow-none border border-slate-200 print:border-none rounded-xl print:rounded-none"
       style={{
         fontFamily: "'Inter', 'Noto Sans Devanagari', sans-serif",
       }}
@@ -58,10 +58,10 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
       {/* REPORT HEADER */}
       {/* =================================================================== */}
       <div className="border-b-2 border-slate-900 pb-4 mb-6">
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded bg-slate-900 text-white flex items-center justify-center font-bold text-sm">
+              <div className="w-8 h-8 rounded bg-slate-900 text-white flex items-center justify-center font-bold text-sm shrink-0">
                 LG
               </div>
               <div>
@@ -85,7 +85,7 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
             </p>
           </div>
 
-          <div className="text-right space-y-1">
+          <div className="text-left sm:text-right space-y-1 shrink-0">
             <div className="font-mono text-xs font-bold text-slate-900">
               ID: {s.reportId}
             </div>
@@ -112,7 +112,7 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs border border-slate-200 p-3.5 rounded-lg bg-slate-50/50">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs border border-slate-200 p-3.5 rounded-lg bg-slate-50/50">
           <div>
             <span className="text-[10px] text-slate-500 uppercase font-semibold block">Inspection ID</span>
             <span className="font-mono font-bold text-slate-900">{s.inspectionId}</span>
@@ -145,42 +145,44 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
           </h2>
         </div>
 
-        <table className="w-full text-xs border border-slate-200 rounded-lg overflow-hidden">
-          <tbody>
-            <tr className="border-b border-slate-100">
-              <td className="w-1/4 p-2 bg-slate-50 font-semibold text-slate-700">Product Name</td>
-              <td className="w-1/4 p-2 font-medium text-slate-900">{p.productName}</td>
-              <td className="w-1/4 p-2 bg-slate-50 font-semibold text-slate-700">Brand</td>
-              <td className="w-1/4 p-2 font-medium text-slate-900">{p.brand}</td>
-            </tr>
-            <tr className="border-b border-slate-100">
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Manufacturer</td>
-              <td className="p-2 text-slate-900" colSpan={3}>{p.manufacturer}</td>
-            </tr>
-            <tr className="border-b border-slate-100">
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Packer / Importer</td>
-              <td className="p-2 text-slate-900">{p.packer}</td>
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Country of Origin</td>
-              <td className="p-2 text-slate-900 font-medium">{p.countryOfOrigin}</td>
-            </tr>
-            <tr className="border-b border-slate-100">
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Net Quantity</td>
-              <td className="p-2 text-slate-900 font-bold">{p.netQuantity}</td>
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Retail Price (MRP)</td>
-              <td className="p-2 text-slate-900 font-bold">{p.mrp}</td>
-            </tr>
-            <tr className="border-b border-slate-100">
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Batch / Lot No.</td>
-              <td className="p-2 text-slate-900 font-mono">{p.batchNumber}</td>
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Dates (Mfg / Pkd)</td>
-              <td className="p-2 text-slate-900 font-mono">Mfg: {p.mfgDate} | Pkd: {p.packingDate}</td>
-            </tr>
-            <tr>
-              <td className="p-2 bg-slate-50 font-semibold text-slate-700">Consumer Care</td>
-              <td className="p-2 text-slate-900" colSpan={3}>{p.consumerCare}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[500px] text-xs border border-slate-200 rounded-lg overflow-hidden">
+            <tbody>
+              <tr className="border-b border-slate-100">
+                <td className="w-1/4 p-2 bg-slate-50 font-semibold text-slate-700">Product Name</td>
+                <td className="w-1/4 p-2 font-medium text-slate-900">{p.productName}</td>
+                <td className="w-1/4 p-2 bg-slate-50 font-semibold text-slate-700">Brand</td>
+                <td className="w-1/4 p-2 font-medium text-slate-900">{p.brand}</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Manufacturer</td>
+                <td className="p-2 text-slate-900" colSpan={3}>{p.manufacturer}</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Packer / Importer</td>
+                <td className="p-2 text-slate-900">{p.packer}</td>
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Country of Origin</td>
+                <td className="p-2 text-slate-900 font-medium">{p.countryOfOrigin}</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Net Quantity</td>
+                <td className="p-2 text-slate-900 font-bold">{p.netQuantity}</td>
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Retail Price (MRP)</td>
+                <td className="p-2 text-slate-900 font-bold">{p.mrp}</td>
+              </tr>
+              <tr className="border-b border-slate-100">
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Batch / Lot No.</td>
+                <td className="p-2 text-slate-900 font-mono">{p.batchNumber}</td>
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Dates (Mfg / Pkd)</td>
+                <td className="p-2 text-slate-900 font-mono">Mfg: {p.mfgDate} | Pkd: {p.packingDate}</td>
+              </tr>
+              <tr>
+                <td className="p-2 bg-slate-50 font-semibold text-slate-700">Consumer Care</td>
+                <td className="p-2 text-slate-900" colSpan={3}>{p.consumerCare}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* =================================================================== */}
@@ -193,7 +195,7 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
           </h2>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs border border-slate-200 p-3 rounded-lg bg-slate-50/40">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs border border-slate-200 p-3 rounded-lg bg-slate-50/40">
           <div>
             <span className="text-[10px] text-slate-500 uppercase block font-semibold">Scanned Surface</span>
             <span className="text-slate-800 font-medium">{o.scannedSurfaces.join(", ")}</span>
@@ -224,47 +226,49 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
           </h2>
         </div>
 
-        <table className="w-full text-xs border border-slate-200">
-          <thead>
-            <tr className="bg-slate-100 text-[10px] uppercase font-bold text-slate-700 border-b border-slate-200">
-              <th className="p-2 text-left">Declaration / घोषणा</th>
-              <th className="p-2 text-left">Observed Extracted Value / प्रेक्षित मान</th>
-              <th className="p-2 text-center">Confidence</th>
-              <th className="p-2 text-center">Evidence Source</th>
-              <th className="p-2 text-right">Status</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-200">
-            {data.declarations.map((d, i) => (
-              <tr key={i} className="hover:bg-slate-50">
-                <td className="p-2 font-semibold text-slate-900">
-                  {isHi ? d.labelHi : isBi ? `${d.labelEn} / ${d.labelHi}` : d.labelEn}
-                </td>
-                <td className="p-2 font-medium text-slate-800 max-w-xs break-words">
-                  {d.extractedValue}
-                  {d.notes && <div className="text-[10px] text-amber-700 italic mt-0.5">{d.notes}</div>}
-                </td>
-                <td className="p-2 text-center font-mono font-bold text-slate-700">
-                  {(d.confidence * 100).toFixed(1)}%
-                </td>
-                <td className="p-2 text-center font-mono text-[10px] text-slate-600">{d.sourceId}</td>
-                <td className="p-2 text-right">
-                  <span
-                    className={`inline-block px-1.5 py-0.2 rounded text-[10px] font-bold ${
-                      d.status === "DETECTED"
-                        ? "bg-emerald-100 text-emerald-800"
-                        : d.status === "AMBIGUOUS"
-                        ? "bg-amber-100 text-amber-800"
-                        : "bg-slate-100 text-slate-600"
-                    }`}
-                  >
-                    {d.status}
-                  </span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[550px] text-xs border border-slate-200">
+            <thead>
+              <tr className="bg-slate-100 text-[10px] uppercase font-bold text-slate-700 border-b border-slate-200">
+                <th className="p-2 text-left">Declaration / घोषणा</th>
+                <th className="p-2 text-left">Observed Extracted Value / प्रेक्षित मान</th>
+                <th className="p-2 text-center">Confidence</th>
+                <th className="p-2 text-center">Evidence Source</th>
+                <th className="p-2 text-right">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {data.declarations.map((d, i) => (
+                <tr key={i} className="hover:bg-slate-50">
+                  <td className="p-2 font-semibold text-slate-900">
+                    {isHi ? d.labelHi : isBi ? `${d.labelEn} / ${d.labelHi}` : d.labelEn}
+                  </td>
+                  <td className="p-2 font-medium text-slate-800 max-w-xs break-words">
+                    {d.extractedValue}
+                    {d.notes && <div className="text-[10px] text-amber-700 italic mt-0.5">{d.notes}</div>}
+                  </td>
+                  <td className="p-2 text-center font-mono font-bold text-slate-700">
+                    {(d.confidence * 100).toFixed(1)}%
+                  </td>
+                  <td className="p-2 text-center font-mono text-[10px] text-slate-600">{d.sourceId}</td>
+                  <td className="p-2 text-right">
+                    <span
+                      className={`inline-block px-1.5 py-0.2 rounded text-[10px] font-bold ${
+                        d.status === "DETECTED"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : d.status === "AMBIGUOUS"
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-slate-100 text-slate-600"
+                      }`}
+                    >
+                      {d.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* =================================================================== */}
@@ -277,43 +281,45 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
           </h2>
         </div>
 
-        <table className="w-full text-xs border border-slate-200">
-          <thead>
-            <tr className="bg-slate-100 text-[10px] uppercase font-bold text-slate-700 border-b border-slate-200">
-              <th className="p-2 text-left">Statutory Rule</th>
-              <th className="p-2 text-left">Observed Evidence</th>
-              <th className="p-2 text-center">Automated Result</th>
-              <th className="p-2 text-center">Officer Verified Result</th>
-              <th className="p-2 text-right">Evidence Ref</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-200">
-            {data.complianceMatrix.map((c, i) => (
-              <tr key={i} className="hover:bg-slate-50">
-                <td className="p-2">
-                  <span className="font-semibold text-slate-900 block">{c.statutoryReference}</span>
-                  <span className="font-mono text-[10px] text-slate-500">{c.ruleId}</span>
-                </td>
-                <td className="p-2 text-slate-700 max-w-xs break-words">{c.observedValue}</td>
-                <td className="p-2 text-center">
-                  <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-bold ${getStatusBadge(c.automatedResult).bg}`}>
-                    {c.automatedResult}
-                  </span>
-                </td>
-                <td className="p-2 text-center font-bold">
-                  {c.officerResult ? (
-                    <span className="inline-block px-1.5 py-0.5 rounded text-[10px] bg-blue-100 text-blue-900 border border-blue-300">
-                      {c.officerResult}
-                    </span>
-                  ) : (
-                    <span className="text-slate-400 font-normal italic text-[11px]">Unverified</span>
-                  )}
-                </td>
-                <td className="p-2 text-right font-mono text-[10px] text-slate-500">{c.evidenceRef}</td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[580px] text-xs border border-slate-200">
+            <thead>
+              <tr className="bg-slate-100 text-[10px] uppercase font-bold text-slate-700 border-b border-slate-200">
+                <th className="p-2 text-left">Statutory Rule</th>
+                <th className="p-2 text-left">Observed Evidence</th>
+                <th className="p-2 text-center">Automated Result</th>
+                <th className="p-2 text-center">Officer Verified Result</th>
+                <th className="p-2 text-right">Evidence Ref</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {data.complianceMatrix.map((c, i) => (
+                <tr key={i} className="hover:bg-slate-50">
+                  <td className="p-2">
+                    <span className="font-semibold text-slate-900 block">{c.statutoryReference}</span>
+                    <span className="font-mono text-[10px] text-slate-500">{c.ruleId}</span>
+                  </td>
+                  <td className="p-2 text-slate-700 max-w-xs break-words">{c.observedValue}</td>
+                  <td className="p-2 text-center">
+                    <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-bold ${getStatusBadge(c.automatedResult).bg}`}>
+                      {c.automatedResult}
+                    </span>
+                  </td>
+                  <td className="p-2 text-center font-bold">
+                    {c.officerResult ? (
+                      <span className="inline-block px-1.5 py-0.5 rounded text-[10px] bg-blue-100 text-blue-900 border border-blue-300">
+                        {c.officerResult}
+                      </span>
+                    ) : (
+                      <span className="text-slate-400 font-normal italic text-[11px]">Unverified</span>
+                    )}
+                  </td>
+                  <td className="p-2 text-right font-mono text-[10px] text-slate-500">{c.evidenceRef}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* =================================================================== */}
@@ -380,7 +386,7 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
         </div>
 
         <div className="border border-slate-200 p-3.5 rounded-lg text-xs space-y-3 bg-slate-50/40">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
             <div>
               <span className="text-[10px] text-slate-500 uppercase block font-semibold">Verified By</span>
               <span className="font-semibold text-slate-900">{s.officerName}</span>
@@ -399,11 +405,11 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
             </div>
           </div>
 
-          <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-600">
+          <div className="pt-2 border-t border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-slate-600">
             <span>
               Officer Attestation: I hereby certify that the observed packaging declarations have been verified in accordance with statutory rules.
             </span>
-            <div className="text-right shrink-0 ml-4 font-mono font-bold text-slate-900 border-b border-slate-900 px-4 py-0.5">
+            <div className="text-right shrink-0 font-mono font-bold text-slate-900 border-b border-slate-900 px-4 py-0.5">
               [ Digitally Verified ]
             </div>
           </div>
@@ -420,26 +426,28 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
           </h2>
         </div>
 
-        <table className="w-full text-[11px] border border-slate-200">
-          <thead>
-            <tr className="bg-slate-100 text-[9px] uppercase font-bold text-slate-700 border-b border-slate-200">
-              <th className="p-1.5 text-left">Event Type</th>
-              <th className="p-1.5 text-left">Actor / Role</th>
-              <th className="p-1.5 text-left">Timestamp (IST)</th>
-              <th className="p-1.5 text-right">Cryptographic Hash</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100 font-mono">
-            {data.auditTrail.slice(-4).map((a, i) => (
-              <tr key={i}>
-                <td className="p-1.5 font-semibold text-slate-800">{a.action}</td>
-                <td className="p-1.5 text-slate-600 font-sans">{a.user?.name || "System"} ({a.user?.role || "SYSTEM"})</td>
-                <td className="p-1.5 text-slate-500 font-sans">{new Date(a.timestamp).toLocaleTimeString()}</td>
-                <td className="p-1.5 text-right text-slate-500">{a.hash?.slice(0, 16)}...</td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[480px] text-[11px] border border-slate-200">
+            <thead>
+              <tr className="bg-slate-100 text-[9px] uppercase font-bold text-slate-700 border-b border-slate-200">
+                <th className="p-1.5 text-left">Event Type</th>
+                <th className="p-1.5 text-left">Actor / Role</th>
+                <th className="p-1.5 text-left">Timestamp (IST)</th>
+                <th className="p-1.5 text-right">Cryptographic Hash</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-100 font-mono">
+              {data.auditTrail.slice(-4).map((a, i) => (
+                <tr key={i}>
+                  <td className="p-1.5 font-semibold text-slate-800">{a.action}</td>
+                  <td className="p-1.5 text-slate-600 font-sans">{a.user?.name || "System"} ({a.user?.role || "SYSTEM"})</td>
+                  <td className="p-1.5 text-slate-500 font-sans">{new Date(a.timestamp).toLocaleTimeString()}</td>
+                  <td className="p-1.5 text-right text-slate-500">{a.hash?.slice(0, 16)}...</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* =================================================================== */}
@@ -452,36 +460,38 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
           </h2>
         </div>
 
-        <table className="w-full text-xs border border-slate-200">
-          <thead>
-            <tr className="bg-slate-100 text-[10px] uppercase font-bold text-slate-700 border-b border-slate-200">
-              <th className="p-2 text-left">Statutory Rule</th>
-              <th className="p-2 text-left">Source Document & Section</th>
-              <th className="p-2 text-center">Effective Date</th>
-              <th className="p-2 text-right">Status</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-100">
-            {data.legalSources.slice(0, 6).map((ls, i) => (
-              <tr key={i}>
-                <td className="p-2 font-semibold text-slate-900">
-                  {ls.statutoryReference}
-                  <span className="block font-mono text-[10px] text-slate-400">{ls.internalRuleId}</span>
-                </td>
-                <td className="p-2 text-slate-700">
-                  <span>{ls.sourceDocument}</span>
-                  <span className="block text-[10px] text-slate-500 font-mono">{ls.sourceSection}</span>
-                </td>
-                <td className="p-2 text-center font-mono text-slate-600">{ls.effectiveDate}</td>
-                <td className="p-2 text-right">
-                  <span className="inline-block px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
-                    {ls.verificationStatus}
-                  </span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[500px] text-xs border border-slate-200">
+            <thead>
+              <tr className="bg-slate-100 text-[10px] uppercase font-bold text-slate-700 border-b border-slate-200">
+                <th className="p-2 text-left">Statutory Rule</th>
+                <th className="p-2 text-left">Source Document & Section</th>
+                <th className="p-2 text-center">Effective Date</th>
+                <th className="p-2 text-right">Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {data.legalSources.slice(0, 6).map((ls, i) => (
+                <tr key={i}>
+                  <td className="p-2 font-semibold text-slate-900">
+                    {ls.statutoryReference}
+                    <span className="block font-mono text-[10px] text-slate-400">{ls.internalRuleId}</span>
+                  </td>
+                  <td className="p-2 text-slate-700">
+                    <span>{ls.sourceDocument}</span>
+                    <span className="block text-[10px] text-slate-500 font-mono">{ls.sourceSection}</span>
+                  </td>
+                  <td className="p-2 text-center font-mono text-slate-600">{ls.effectiveDate}</td>
+                  <td className="p-2 text-right">
+                    <span className="inline-block px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800">
+                      {ls.verificationStatus}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* =================================================================== */}
@@ -507,9 +517,9 @@ export const InspectionReportDocument: React.FC<InspectionReportDocumentProps> =
             </p>
           )}
 
-          <div className="text-[9.5px] text-slate-400 pt-1 border-t border-slate-200 flex items-center justify-between">
+          <div className="text-[9.5px] text-slate-400 pt-1 border-t border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-1">
             <span>Generated securely via LabelGuard Deterministic Metrology Core.</span>
-            <span>Page 1 of 1 • Official Inspection Dossier</span>
+            <span>Official Statutory Inspection Dossier (5-Section Inspection Matrix)</span>
           </div>
         </div>
       </div>

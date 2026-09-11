@@ -47,3 +47,79 @@
 .focus-ring {
   @apply focus:outline-none focus:ring-2 focus:ring-action focus:ring-offset-1;
 }
+
+/* ==========================================================================
+   Statutory Multi-Page Print Rules for Legal Metrology Reports
+   ========================================================================== */
+@media print {
+  /* 1. Hide all application chrome, navigation, headers, and floating controls */
+  aside,
+  header,
+  nav,
+  button,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* 2. Remove layout constraints (flex, h-screen, scrollbars) that clip pages */
+  html,
+  body {
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 11px !important;
+  }
+
+  div,
+  main,
+  section {
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  .h-screen,
+  .overflow-hidden,
+  .overflow-y-auto {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* 3. A4 Page Setup */
+  @page {
+    size: A4 portrait;
+    margin: 12mm 14mm 12mm 14mm;
+  }
+
+  /* 4. Full document expansion without borders or shadows */
+  #labelguard-report-document {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+  }
+
+  /* 5. Prevent awkward breaks inside tables and key sections */
+  .break-inside-avoid,
+  table,
+  tr,
+  td,
+  th {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Force exact color reproduction for badges and status stamps */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+

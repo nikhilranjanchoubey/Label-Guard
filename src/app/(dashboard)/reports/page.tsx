@@ -33,14 +33,18 @@ export default function ReportsPage() {
     }
   }, []);
 
-  // Handle direct PDF download via backend API
+  // Handle direct PDF download (both server API & client fallback for Vercel/mobile)
   const handleDownloadPdf = async () => {
     setIsDownloading(true);
     toast({
-      title: locale === "hi" ? "पीडीएफ तैयार हो रही है" : "Compiling Inspection PDF",
-      description: locale === "hi" ? "आधिकारिक विधिक मापविज्ञान रिपोर्ट तैयार की जा रही है..." : "Compiling statutory Legal Metrology report with authentic Devanagari ligatures...",
+      title: locale === "hi" ? "पीडीएफ तैयार हो रही है" : "Compiling 5-Page Inspection PDF",
+      description: locale === "hi" ? "आधिकारिक विधिक मापविज्ञान रिपोर्ट तैयार की जा रही है..." : "Generating statutory Legal Metrology dossier with complete evidence...",
       type: "info",
     });
+
+    const filename = `LabelGuard_Inspection_${reportData?.executiveSummary.inspectionId || "Report"}_${languageMode}.pdf`;
+
+    // 1. First attempt: Try fast server-side download if available
     try {
       const res = await fetch("/api/reports/pdf", {
         method: "POST",
@@ -51,44 +55,45 @@ export default function ReportsPage() {
         }),
       });
 
-      if (!res.ok) {
-        // If server-side headless renderer is unavailable, gracefully inform and trigger print
-        const errJson = await res.json().catch(() => ({}));
-        if (errJson.canUseBrowserPrint) {
-          toast({
-            title: "Local PDF Engine Notice",
-            description: "Opening browser print engine to Save as PDF with native Hindi support.",
-            type: "info",
-          });
-          window.print();
-          setIsDownloading(false);
-          return;
-        }
-        throw new Error(errJson.error || "Failed to compile report PDF");
-      }
+      if (res.ok) {
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
 
-      // Download blob
-      const blob = await res.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `LabelGuard_Inspection_${reportData?.executiveSummary.inspectionId || "Report"}_${languageMode}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+        toast({
+          title: "Report Exported",
+          description: `Official Legal Metrology PDF inspection report downloaded (${languageMode.toUpperCase()}).`,
+          type: "success",
+        });
+        setIsDownloading(false);
+        return;
+      }
+    } catch {
+      // Server-side unavailable or error (e.g. Vercel serverless environment)
+    }
+
+    // 2. Client-side Universal PDF Export: Direct multi-page download (works on Vercel & mobile)
+    try {
+      const { downloadInspectionReportAsPdf } = await import("@/lib/reports/clientPdfExporter");
+      await downloadInspectionReportAsPdf("labelguard-report-document", filename);
 
       toast({
-        title: "Report Exported",
-        description: `Official Legal Metrology PDF inspection report downloaded (${languageMode.toUpperCase()}).`,
+        title: "Report Downloaded",
+        description: `Official multi-page Legal Metrology PDF report downloaded successfully.`,
         type: "success",
       });
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : "Download failed";
-      console.warn("[Reports] PDF Download failed, falling back to browser print:", msg);
+    } catch (clientErr: unknown) {
+      const msg = clientErr instanceof Error ? clientErr.message : "Download failed";
+      console.warn("[Reports] Client PDF export error:", msg);
       toast({
-        title: "Export Notice",
-        description: "Opening Print dialog to Save as PDF directly.",
+        title: "Print / Save as PDF",
+        description: "Opening clean print dialog to save document as PDF.",
         type: "info",
       });
       window.print();
@@ -278,7 +283,7 @@ export default function ReportsPage() {
       </Card>
 
       {/* Main Report Document Container */}
-      <div className="bg-slate-100/70 p-4 sm:p-8 rounded-2xl border border-slate-200 overflow-x-auto print:p-0 print:border-none print:bg-white">
+      <div className="bg-slate-100/70 p-2 sm:p-6 md:p-8 rounded-2xl border border-slate-200 overflow-x-auto print:p-0 print:border-none print:bg-white">
         <InspectionReportDocument
           data={reportData}
           languageMode={languageMode}

@@ -4,17 +4,27 @@ import React from "react";
 import Link from "next/link";
 import { useTranslation } from "@/lib/i18n";
 import { LanguageSwitcher } from "../ui/LanguageSwitcher";
-import { Search, ScanLine, UserCheck } from "lucide-react";
+import { Search, ScanLine, UserCheck, Menu } from "lucide-react";
 import { MOCK_OFFICER } from "@/mocks/sampleData";
 
-export const Header: React.FC = () => {
+export const Header: React.FC<{ onToggleMobileMenu?: () => void }> = ({ onToggleMobileMenu }) => {
   const { t } = useTranslation();
 
   return (
-    <header className="h-16 bg-white border-b border-boundary px-6 flex items-center justify-between sticky top-0 z-30 shadow-sm">
-      {/* Left: Search input */}
-      <div className="flex items-center gap-4 flex-1 max-w-md">
-        <div className="relative w-full">
+    <header className="h-16 bg-white border-b border-boundary px-4 sm:px-6 flex items-center justify-between sticky top-0 z-30 shadow-sm print:hidden">
+      {/* Left: Mobile hamburger & Search input */}
+      <div className="flex items-center gap-2 sm:gap-4 flex-1 max-w-md">
+        {onToggleMobileMenu && (
+          <button
+            type="button"
+            onClick={onToggleMobileMenu}
+            className="lg:hidden p-2 -ml-1 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors focus-ring"
+            aria-label="Toggle navigation menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
+        <div className="relative w-full hidden sm:block">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"

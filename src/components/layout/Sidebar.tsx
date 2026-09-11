@@ -22,7 +22,10 @@ import {
   LogOut,
 } from "lucide-react";
 
-export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
+export const Sidebar: React.FC<{ className?: string; onCloseMobile?: () => void }> = ({
+  className,
+  onCloseMobile,
+}) => {
   const pathname = usePathname();
   const { t } = useTranslation();
 
@@ -44,13 +47,13 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
   return (
     <aside
       className={clsx(
-        "w-64 bg-primary text-white flex flex-col shrink-0 border-r border-slate-800 select-none min-h-screen",
+        "w-64 bg-primary text-white flex flex-col shrink-0 border-r border-slate-800 select-none min-h-screen h-full",
         className
       )}
     >
       {/* Brand & Identity Header */}
-      <div className="p-4 border-b border-primary-light/40">
-        <Link href="/dashboard" className="flex items-center gap-3 group">
+      <div className="p-4 border-b border-primary-light/40 flex items-center justify-between">
+        <Link href="/dashboard" onClick={onCloseMobile} className="flex items-center gap-3 group">
           <div className="w-10 h-10 rounded-xl bg-action flex items-center justify-center text-white shadow-md group-hover:bg-action-hover transition-colors shrink-0">
             <Shield className="w-6 h-6" />
           </div>
@@ -63,8 +66,6 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
             </span>
           </div>
         </Link>
-
-
       </div>
 
       {/* Navigation Menu */}
@@ -77,6 +78,7 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className }) => {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onCloseMobile}
               className={clsx(
                 "flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors",
                 isActive
