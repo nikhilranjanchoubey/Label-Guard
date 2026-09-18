@@ -5,36 +5,98 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import {
   Scan,
   LayoutDashboard,
   Search,
   ArrowRight,
   ShieldCheck,
-  AlertTriangle,
-  FileText,
   Scale,
   Sparkles,
-  CheckCircle2,
-  Layers,
-  FileSpreadsheet,
-  Megaphone,
-  QrCode,
-  Building2,
-  Users,
-  Eye,
-  Sliders,
-  Check,
-  Cpu,
-  AlertOctagon,
-  FileCheck2,
 } from "lucide-react";
+
+// Single source of truth for Hero Demonstration Cases
+interface DemoCase {
+  id: "A" | "B" | "C";
+  caseTag: string;
+  caseLabel: string;
+  name: string;
+  brand: string;
+  image: string;
+  status: "COMPLIANT" | "NEEDS REVIEW" | "NON-COMPLIANT";
+  statusColor: string;
+  coverage: string;
+  ocrConf: string;
+  inspectQuery: string;
+  highlights: { label: string; value: string; box: string }[];
+}
+
+const demoCases: DemoCase[] = [
+  {
+    id: "A",
+    caseTag: "CASE A",
+    caseLabel: "Wheat Flour",
+    name: "Superior Sharbati Atta 5kg",
+    brand: "Aashirvaad",
+    image: "/products/atta/atta-front.jpg",
+    status: "COMPLIANT",
+    statusColor: "text-emerald-700 bg-emerald-50 border-emerald-300",
+    coverage: "100%",
+    ocrConf: "98%",
+    inspectQuery: "case=compliant",
+    highlights: [
+      { label: "MRP", value: "₹285.00 · 98% (Pass)", box: "top-[48%] right-[8%]" },
+      { label: "Net Qty", value: "5 kg · 97% (Pass)", box: "top-[48%] left-[8%]" },
+      { label: "Packer", value: "ITC Limited · 98% (Pass)", box: "bottom-[12%] left-[8%]" },
+    ],
+  },
+  {
+    id: "B",
+    caseTag: "CASE B",
+    caseLabel: "Tea",
+    name: "Herbal Green Tea 250g",
+    brand: "Organic India",
+    image: "/products/tea/tea-front.jpg",
+    status: "NEEDS REVIEW",
+    statusColor: "text-amber-800 bg-amber-50 border-amber-300",
+    coverage: "82%",
+    ocrConf: "78%",
+    inspectQuery: "case=review",
+    highlights: [
+      { label: "Mfg Date", value: "01/2026 · 68% (Crease - Review)", box: "top-[42%] left-[8%]" },
+      { label: "Net Qty", value: "250 g · 94% (Pass)", box: "top-[58%] left-[8%]" },
+      { label: "Consumer Care", value: "care@organicindia.com · 92% (Pass)", box: "bottom-[12%] left-[8%]" },
+    ],
+  },
+  {
+    id: "C",
+    caseTag: "CASE C",
+    caseLabel: "Cooking Oil",
+    name: "Fortune Sunflower Oil 1L",
+    brand: "Adani Wilmar",
+    image: "/products/oil/oil-front.jpg",
+    status: "NON-COMPLIANT",
+    statusColor: "text-red-700 bg-red-50 border-red-300",
+    coverage: "50%",
+    ocrConf: "89%",
+    inspectQuery: "case=violation",
+    highlights: [
+      { label: "MRP Violation", value: "Secondary Sticker over ₹125 · Rule 6(1)(da)", box: "top-[38%] right-[8%]" },
+      { label: "Net Volume", value: "1 L (910g) · 95% (Pass)", box: "top-[55%] left-[8%]" },
+      { label: "Packer", value: "Adani Wilmar Ltd · 94% (Pass)", box: "bottom-[12%] left-[8%]" },
+    ],
+  },
+];
 
 export default function HomePage() {
   const { t } = useLanguage();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<"atta" | "tea" | "oil">("atta");
+  // Single case selection state
+  const [activeCaseId, setActiveCaseId] = useState<"A" | "B" | "C">("A");
+
+  const activeCase = demoCases.find((c) => c.id === activeCaseId) || demoCases[0];
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,65 +109,9 @@ export default function HomePage() {
     router.push(`/inspections?q=${encodeURIComponent(term)}`);
   };
 
-  const packageVisuals = {
-    atta: {
-      image: "/products/atta/atta-front.jpg",
-      name: "Superior Sharbati Atta 5kg",
-      brand: "Aashirvaad",
-      caseTag: "CASE A",
-      caseLabel: "Wheat Flour",
-      status: "COMPLIANT",
-      statusColor: "text-emerald-700 bg-emerald-50 border-emerald-300",
-      coverage: "100%",
-      ocrConf: "98%",
-      inspectQuery: "case=compliant",
-      highlights: [
-        { label: "MRP", value: "₹285.00 · 98% (Pass)", box: "top-[48%] right-[8%]" },
-        { label: "Net Qty", value: "5 kg · 97% (Pass)", box: "top-[48%] left-[8%]" },
-        { label: "Packer", value: "ITC Limited · 98% (Pass)", box: "bottom-[12%] left-[8%]" },
-      ],
-    },
-    tea: {
-      image: "/products/tea/tea-front.jpg",
-      name: "Herbal Green Tea 250g",
-      brand: "Organic India",
-      caseTag: "CASE B",
-      caseLabel: "Tea",
-      status: "NEEDS REVIEW",
-      statusColor: "text-amber-800 bg-amber-50 border-amber-300",
-      coverage: "82%",
-      ocrConf: "78%",
-      inspectQuery: "case=review",
-      highlights: [
-        { label: "Mfg Date", value: "01/2026 · 68% (Crease - Review)", box: "top-[42%] left-[8%]" },
-        { label: "Net Qty", value: "250 g · 94% (Pass)", box: "top-[58%] left-[8%]" },
-        { label: "Consumer Care", value: "care@organicindia.com · 92% (Pass)", box: "bottom-[12%] left-[8%]" },
-      ],
-    },
-    oil: {
-      image: "/products/oil/oil-front.jpg",
-      name: "Fortune Sunflower Oil 1L",
-      brand: "Adani Wilmar",
-      caseTag: "CASE C",
-      caseLabel: "Cooking Oil",
-      status: "NON-COMPLIANT",
-      statusColor: "text-red-700 bg-red-50 border-red-300",
-      coverage: "50%",
-      ocrConf: "89%",
-      inspectQuery: "case=violation",
-      highlights: [
-        { label: "MRP Violation", value: "Secondary Sticker over ₹125 · Rule 6(1)(da)", box: "top-[38%] right-[8%]" },
-        { label: "Net Volume", value: "1 L (910g) · 95% (Pass)", box: "top-[55%] left-[8%]" },
-        { label: "Packer", value: "Adani Wilmar Ltd · 94% (Pass)", box: "bottom-[12%] left-[8%]" },
-      ],
-    },
-  };
-
-  const activeVisual = packageVisuals[activeTab];
-
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
+      {/* Hero Section — Never hidden by scroll reveal, always immediately visible */}
       <section className="relative mx-auto w-full max-w-7xl px-4 pb-12 pt-6 sm:px-6 lg:pt-10">
         <div className="grid items-center gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-12">
           {/* Left Hero Copy */}
@@ -258,23 +264,25 @@ export default function HomePage() {
               className="absolute -right-20 -top-20 size-72 rounded-full bg-[#ffd9a8] blur-3xl"
             />
 
-            {/* Stage Selector Pills at Top */}
+            {/* Stage Selector Pills at Top — ALWAYS VISIBLE, ACTIVE = BLUE, INACTIVE = BLACK */}
             <div className="absolute left-4 right-4 top-4 z-20 flex items-center justify-between gap-2">
               <div className="glass flex items-center gap-1 rounded-full p-1 border border-white/80 shadow-xs">
-                {(["atta", "tea", "oil"] as const).map((tab) => {
-                  const item = packageVisuals[tab];
-                  const isSelected = activeTab === tab;
+                {demoCases.map((item) => {
+                  const isSelected = activeCase.id === item.id;
                   return (
                     <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      className={`flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold transition-all ${
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveCaseId(item.id)}
+                      className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold transition-all ${
                         isSelected
-                          ? "bg-navy-950 text-white shadow-xs"
-                          : "text-slate-600 hover:text-navy-950 hover:bg-white/80"
+                          ? "bg-blue-600 text-white shadow-sm"
+                          : "text-slate-900 hover:text-blue-700 hover:bg-white/80 font-semibold"
                       }`}
                     >
-                      <span className="text-[10px] opacity-75 font-mono">{item.caseTag}</span>
+                      <span className={`text-[10px] font-mono ${isSelected ? "text-blue-100" : "text-slate-600 font-semibold"}`}>
+                        {item.caseTag}
+                      </span>
                       <span>{item.caseLabel}</span>
                     </button>
                   );
@@ -282,17 +290,18 @@ export default function HomePage() {
               </div>
 
               {/* Status Badge */}
-              <span className={`rounded-full border px-3 py-1 font-mono text-xs font-bold shadow-2xs ${activeVisual.statusColor}`}>
-                {activeVisual.status}
+              <span className={`rounded-full border px-3 py-1 font-mono text-xs font-bold shadow-2xs ${activeCase.statusColor}`}>
+                {activeCase.status}
               </span>
             </div>
 
             {/* Interactive Package Display */}
             <div className="relative flex size-full items-center justify-center p-8 pt-16">
-              <div className="relative h-full max-h-[420px] w-auto aspect-[4/5] rounded-2xl shadow-xl overflow-hidden bg-white/40 border border-white/80 p-2">
+              <div className="relative h-full max-h-[420px] w-auto aspect-[4/5] rounded-2xl shadow-xl overflow-hidden bg-white/70 border border-white/90 p-2 flex items-center justify-center">
                 <Image
-                  src={activeVisual.image}
-                  alt={activeVisual.name}
+                  key={activeCase.image}
+                  src={activeCase.image}
+                  alt={activeCase.name}
                   width={400}
                   height={500}
                   className="size-full object-contain"
@@ -307,13 +316,13 @@ export default function HomePage() {
                 </div>
 
                 {/* Detected Bounding Box Overlays */}
-                {activeVisual.highlights.map((h, i) => (
+                {activeCase.highlights.map((h, i) => (
                   <div
-                    key={i}
+                    key={`${activeCase.id}-${i}`}
                     className={`absolute z-10 rounded-md border-2 border-dashed ${
-                      activeVisual.status === "NON-COMPLIANT" && i === 0
+                      activeCase.status === "NON-COMPLIANT" && i === 0
                         ? "border-red-500 bg-red-500/20"
-                        : activeVisual.status === "NEEDS REVIEW" && i === 0
+                        : activeCase.status === "NEEDS REVIEW" && i === 0
                         ? "border-amber-500 bg-amber-500/20"
                         : "border-emerald-500 bg-emerald-500/15"
                     } p-1 shadow-sm transition-transform hover:scale-105 ${h.box}`}
@@ -330,16 +339,16 @@ export default function HomePage() {
             </div>
 
             {/* Bottom Live Metrics Tag */}
-            <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between rounded-2xl bg-white/85 px-4 py-2.5 backdrop-blur-md border border-white">
+            <div className="absolute bottom-4 left-4 right-4 z-20 flex items-center justify-between rounded-2xl bg-white/90 px-4 py-2.5 backdrop-blur-md border border-white shadow-sm">
               <div className="flex items-center gap-2">
                 <Sparkles className="size-4 text-navy-500" />
-                <span className="text-xs font-semibold text-ink">{activeVisual.name}</span>
+                <span className="text-xs font-semibold text-ink">{activeCase.name}</span>
               </div>
               <div className="flex items-center gap-4 text-xs font-medium text-ink-muted">
-                <span>Coverage: <strong className="text-ink">{activeVisual.coverage}</strong></span>
-                <span>OCR: <strong className="text-ink">{activeVisual.ocrConf}</strong></span>
+                <span>Coverage: <strong className="text-ink">{activeCase.coverage}</strong></span>
+                <span>OCR: <strong className="text-ink">{activeCase.ocrConf}</strong></span>
                 <Link
-                  href={`/inspect?${activeVisual.inspectQuery}`}
+                  href={`/inspect?${activeCase.inspectQuery}`}
                   className="font-bold text-blue-600 hover:underline flex items-center gap-1"
                 >
                   <span>Inspect Case</span>
@@ -349,9 +358,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-
-
-
 
         {/* Prototype Demonstration Metrics Strip */}
         <div className="mt-14 border-t border-line pt-8">
@@ -364,310 +370,348 @@ export default function HomePage() {
             </span>
           </div>
           <dl className="mt-4 grid grid-cols-2 gap-x-6 gap-y-6 lg:grid-cols-4">
-            <div className="glass rounded-3xl p-5">
-              <dd className="num text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
-                128
-              </dd>
-              <dt className="mt-1 text-xs font-medium text-ink-muted">Test Packages Inspected</dt>
-            </div>
-            <div className="glass rounded-3xl p-5">
-              <dd className="num text-3xl font-extrabold tracking-tight text-emerald-600 sm:text-4xl">
-                87.5%
-              </dd>
-              <dt className="mt-1 text-xs font-medium text-ink-muted">Sample Dataset Compliance</dt>
-            </div>
-            <div className="glass rounded-3xl p-5">
-              <dd className="num text-3xl font-extrabold tracking-tight text-navy-500 sm:text-4xl">
-                94.8%
-              </dd>
-              <dt className="mt-1 text-xs font-medium text-ink-muted">Average OCR Confidence</dt>
-            </div>
-            <div className="glass rounded-3xl p-5">
-              <dd className="num text-3xl font-extrabold tracking-tight text-red-600 sm:text-4xl">
-                16
-              </dd>
-              <dt className="mt-1 text-xs font-medium text-ink-muted">Configured Violations Detected</dt>
-            </div>
+            <ScrollReveal delay={0}>
+              <div className="glass rounded-3xl p-5">
+                <dd className="num text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
+                  128
+                </dd>
+                <dt className="mt-1 text-xs font-medium text-ink-muted">Test Packages Inspected</dt>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={80}>
+              <div className="glass rounded-3xl p-5">
+                <dd className="num text-3xl font-extrabold tracking-tight text-emerald-600 sm:text-4xl">
+                  87.5%
+                </dd>
+                <dt className="mt-1 text-xs font-medium text-ink-muted">Sample Dataset Compliance</dt>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={160}>
+              <div className="glass rounded-3xl p-5">
+                <dd className="num text-3xl font-extrabold tracking-tight text-navy-500 sm:text-4xl">
+                  94.8%
+                </dd>
+                <dt className="mt-1 text-xs font-medium text-ink-muted">Average OCR Confidence</dt>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={240}>
+              <div className="glass rounded-3xl p-5">
+                <dd className="num text-3xl font-extrabold tracking-tight text-red-600 sm:text-4xl">
+                  16
+                </dd>
+                <dt className="mt-1 text-xs font-medium text-ink-muted">Configured Violations Detected</dt>
+              </div>
+            </ScrollReveal>
           </dl>
         </div>
       </section>
 
       {/* ================= SECTION: HOW LABEL GUARD WORKS (5 STEPS) ================= */}
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6">
-        <div className="max-w-2xl">
-          <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-500">
-            <span className="h-px w-6 bg-current"></span>
-            SIH Problem Statement 26034
-          </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            How Label Guard Works
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-            End-to-end statutory verification workflow from image ingest to judicial-ready inspection reports:
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-500">
+              <span className="h-px w-6 bg-current"></span>
+              SIH Problem Statement 26034
+            </p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              How Label Guard Works
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+              End-to-end statutory verification workflow from image ingest to judicial-ready inspection reports:
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-          <div className="glass flex flex-col rounded-3xl p-6">
-            <div className="flex size-10 items-center justify-center rounded-2xl bg-navy-500/10 text-navy-500 font-mono font-bold text-sm">
-              01
+          <ScrollReveal delay={0}>
+            <div className="glass flex flex-col rounded-3xl p-6 h-full">
+              <div className="flex size-10 items-center justify-center rounded-2xl bg-navy-500/10 text-navy-500 font-mono font-bold text-sm">
+                01
+              </div>
+              <h3 className="mt-4 text-base font-bold text-ink">Capture / Upload</h3>
+              <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+                Upload multi-angle packaged commodity photographs (PDP, back statutory panel, side panels) or artwork proofs.
+              </p>
             </div>
-            <h3 className="mt-4 text-base font-bold text-ink">Capture / Upload</h3>
-            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
-              Upload multi-angle packaged commodity photographs (PDP, back statutory panel, side panels) or artwork proofs.
-            </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="glass flex flex-col rounded-3xl p-6">
-            <div className="flex size-10 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 font-mono font-bold text-sm">
-              02
+          <ScrollReveal delay={70}>
+            <div className="glass flex flex-col rounded-3xl p-6 h-full">
+              <div className="flex size-10 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 font-mono font-bold text-sm">
+                02
+              </div>
+              <h3 className="mt-4 text-base font-bold text-ink">OCR + Vision</h3>
+              <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+                Computer vision localizes textual regions, extracts coordinates, and assigns per-token confidence scores.
+              </p>
             </div>
-            <h3 className="mt-4 text-base font-bold text-ink">OCR + Vision</h3>
-            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
-              Computer vision localizes textual regions, extracts coordinates, and assigns per-token confidence scores.
-            </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="glass flex flex-col rounded-3xl p-6">
-            <div className="flex size-10 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 font-mono font-bold text-sm">
-              03
+          <ScrollReveal delay={140}>
+            <div className="glass flex flex-col rounded-3xl p-6 h-full">
+              <div className="flex size-10 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 font-mono font-bold text-sm">
+                03
+              </div>
+              <h3 className="mt-4 text-base font-bold text-ink">Declaration Parser</h3>
+              <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+                Extracted tokens are mapped to mandatory PCR fields (Packer, Generic Name, Net Qty, MRP, Date, Consumer Care).
+              </p>
             </div>
-            <h3 className="mt-4 text-base font-bold text-ink">Declaration Parser</h3>
-            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
-              Extracted tokens are mapped to mandatory PCR fields (Packer, Generic Name, Net Qty, MRP, Date, Consumer Care).
-            </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="glass flex flex-col rounded-3xl p-6">
-            <div className="flex size-10 items-center justify-center rounded-2xl bg-purple-500/10 text-purple-600 font-mono font-bold text-sm">
-              04
+          <ScrollReveal delay={210}>
+            <div className="glass flex flex-col rounded-3xl p-6 h-full">
+              <div className="flex size-10 items-center justify-center rounded-2xl bg-purple-500/10 text-purple-600 font-mono font-bold text-sm">
+                04
+              </div>
+              <h3 className="mt-4 text-base font-bold text-ink">Rule Engine</h3>
+              <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+                Deterministic rule engine evaluates compliance against Rules 6, 7 (Table 1 font ratio), 8 (units), and 9.
+              </p>
             </div>
-            <h3 className="mt-4 text-base font-bold text-ink">Rule Engine</h3>
-            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
-              Deterministic rule engine evaluates compliance against Rules 6, 7 (Table 1 font ratio), 8 (units), and 9.
-            </p>
-          </div>
+          </ScrollReveal>
 
-          <div className="glass flex flex-col rounded-3xl p-6">
-            <div className="flex size-10 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 font-mono font-bold text-sm">
-              05
+          <ScrollReveal delay={280}>
+            <div className="glass flex flex-col rounded-3xl p-6 h-full">
+              <div className="flex size-10 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 font-mono font-bold text-sm">
+                05
+              </div>
+              <h3 className="mt-4 text-base font-bold text-ink">Evidence Report</h3>
+              <p className="mt-2 text-xs leading-relaxed text-ink-muted">
+                Compiles tamper-evident A4 PDF and editable DOCX reports with spatial bounding boxes and SHA-256 seal.
+              </p>
             </div>
-            <h3 className="mt-4 text-base font-bold text-ink">Evidence Report</h3>
-            <p className="mt-2 text-xs leading-relaxed text-ink-muted">
-              Compiles tamper-evident A4 PDF and editable DOCX reports with spatial bounding boxes and SHA-256 seal.
-            </p>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* ================= SECTION: WHAT DECLARATIONS ARE CHECKED ================= */}
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 border-t border-line">
-        <div className="max-w-2xl">
-          <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-500">
-            <span className="h-px w-6 bg-current"></span>
-            Statutory Scope
-          </p>
-          <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-            What Declarations Are Checked
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-            The platform assesses mandatory statutory declarations prescribed under Rule 6 of PCR 2011 alongside verification dimensions:
-          </p>
-        </div>
+        <ScrollReveal>
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-500">
+              <span className="h-px w-6 bg-current"></span>
+              Statutory Scope
+            </p>
+            <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              What Declarations Are Checked
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+              The platform assesses mandatory statutory declarations prescribed under Rule 6 of PCR 2011 alongside verification dimensions:
+            </p>
+          </div>
+        </ScrollReveal>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="glass rounded-3xl p-6">
-            <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(a)</span>
-            <h3 className="mt-2 text-base font-bold text-ink">Manufacturer / Packer / Importer</h3>
-            <p className="mt-1 text-xs text-ink-muted leading-relaxed">
-              Verifies complete name and physical address including street, state, and 6-digit postal pincode.
-            </p>
-            <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
-              IMPLEMENTED
-            </span>
-          </div>
+          <ScrollReveal delay={0}>
+            <div className="glass rounded-3xl p-6 h-full">
+              <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(a)</span>
+              <h3 className="mt-2 text-base font-bold text-ink">Manufacturer / Packer / Importer</h3>
+              <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+                Verifies complete name and physical address including street, state, and 6-digit postal pincode.
+              </p>
+              <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                IMPLEMENTED
+              </span>
+            </div>
+          </ScrollReveal>
 
-          <div className="glass rounded-3xl p-6">
-            <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(b)</span>
-            <h3 className="mt-2 text-base font-bold text-ink">Generic / Common Commodity Name</h3>
-            <p className="mt-1 text-xs text-ink-muted leading-relaxed">
-              Validates that the true commodity description is prominently declared on the Principal Display Panel.
-            </p>
-            <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
-              IMPLEMENTED
-            </span>
-          </div>
+          <ScrollReveal delay={60}>
+            <div className="glass rounded-3xl p-6 h-full">
+              <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(b)</span>
+              <h3 className="mt-2 text-base font-bold text-ink">Generic / Common Commodity Name</h3>
+              <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+                Validates that the true commodity description is prominently declared on the Principal Display Panel.
+              </p>
+              <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                IMPLEMENTED
+              </span>
+            </div>
+          </ScrollReveal>
 
-          <div className="glass rounded-3xl p-6">
-            <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(c) &amp; Rule 8</span>
-            <h3 className="mt-2 text-base font-bold text-ink">Net Quantity &amp; Standard Units</h3>
-            <p className="mt-1 text-xs text-ink-muted leading-relaxed">
-              Checks standard metric units (g, kg, mL, L). Flags illegal non-standard symbols like &quot;gms&quot; or &quot;lit&quot;.
-            </p>
-            <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
-              IMPLEMENTED
-            </span>
-          </div>
+          <ScrollReveal delay={120}>
+            <div className="glass rounded-3xl p-6 h-full">
+              <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(c) &amp; Rule 8</span>
+              <h3 className="mt-2 text-base font-bold text-ink">Net Quantity &amp; Standard Units</h3>
+              <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+                Checks standard metric units (g, kg, mL, L). Flags illegal non-standard symbols like &quot;gms&quot; or &quot;lit&quot;.
+              </p>
+              <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                IMPLEMENTED
+              </span>
+            </div>
+          </ScrollReveal>
 
-          <div className="glass rounded-3xl p-6">
-            <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(da)</span>
-            <h3 className="mt-2 text-base font-bold text-ink">Maximum Retail Price (MRP)</h3>
-            <p className="mt-1 text-xs text-ink-muted leading-relaxed">
-              Confirms Rupee symbol (₹), explicit phrase &quot;incl. of all taxes&quot;, and detects secondary sticker overlays.
-            </p>
-            <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
-              IMPLEMENTED
-            </span>
-          </div>
+          <ScrollReveal delay={180}>
+            <div className="glass rounded-3xl p-6 h-full">
+              <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(da)</span>
+              <h3 className="mt-2 text-base font-bold text-ink">Maximum Retail Price (MRP)</h3>
+              <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+                Confirms Rupee symbol (₹), explicit phrase &quot;incl. of all taxes&quot;, and detects secondary sticker overlays.
+              </p>
+              <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                IMPLEMENTED
+              </span>
+            </div>
+          </ScrollReveal>
 
-          <div className="glass rounded-3xl p-6">
-            <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(d)</span>
-            <h3 className="mt-2 text-base font-bold text-ink">Month &amp; Year of Packing / Mfg</h3>
-            <p className="mt-1 text-xs text-ink-muted leading-relaxed">
-              Validates unambiguous date format (MM/YYYY) legible without decoding or obscure lot stamps.
-            </p>
-            <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
-              IMPLEMENTED
-            </span>
-          </div>
+          <ScrollReveal delay={240}>
+            <div className="glass rounded-3xl p-6 h-full">
+              <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(d)</span>
+              <h3 className="mt-2 text-base font-bold text-ink">Month &amp; Year of Packing / Mfg</h3>
+              <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+                Validates unambiguous date format (MM/YYYY) legible without decoding or obscure lot stamps.
+              </p>
+              <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                IMPLEMENTED
+              </span>
+            </div>
+          </ScrollReveal>
 
-          <div className="glass rounded-3xl p-6">
-            <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(e)</span>
-            <h3 className="mt-2 text-base font-bold text-ink">Consumer Care Redressal</h3>
-            <p className="mt-1 text-xs text-ink-muted leading-relaxed">
-              Ensures both telephone number / toll-free helpline and valid electronic email address are provided.
-            </p>
-            <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
-              IMPLEMENTED
-            </span>
-          </div>
+          <ScrollReveal delay={300}>
+            <div className="glass rounded-3xl p-6 h-full">
+              <span className="font-mono text-xs font-bold text-navy-500">Rule 6(1)(e)</span>
+              <h3 className="mt-2 text-base font-bold text-ink">Consumer Care Redressal</h3>
+              <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+                Ensures both telephone number / toll-free helpline and valid electronic email address are provided.
+              </p>
+              <span className="mt-3 inline-block rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                IMPLEMENTED
+              </span>
+            </div>
+          </ScrollReveal>
         </div>
 
         {/* 4 Additional Validation Dimensions */}
-        <div className="mt-8 grid gap-4 sm:grid-cols-4 text-xs">
-          <div className="rounded-2xl border border-line bg-white/60 p-4">
-            <span className="font-bold text-navy-500">1. Readability</span>
-            <p className="mt-1 text-ink-muted">Optical contrast and token sharpness score.</p>
+        <ScrollReveal delay={100}>
+          <div className="mt-8 grid gap-4 sm:grid-cols-4 text-xs">
+            <div className="rounded-2xl border border-line bg-white/60 p-4">
+              <span className="font-bold text-navy-500">1. Readability</span>
+              <p className="mt-1 text-ink-muted">Optical contrast and token sharpness score.</p>
+            </div>
+            <div className="rounded-2xl border border-line bg-white/60 p-4">
+              <span className="font-bold text-navy-500">2. Font Size (Rule 7)</span>
+              <p className="mt-1 text-ink-muted">Table 1 ratio evaluated against PDP area.</p>
+            </div>
+            <div className="rounded-2xl border border-line bg-white/60 p-4">
+              <span className="font-bold text-navy-500">3. Placement</span>
+              <p className="mt-1 text-ink-muted">Principal Display Panel vs. statutory panel.</p>
+            </div>
+            <div className="rounded-2xl border border-line bg-white/60 p-4">
+              <span className="font-bold text-navy-500">4. Completeness</span>
+              <p className="mt-1 text-ink-muted">Absence of any mandatory declaration.</p>
+            </div>
           </div>
-          <div className="rounded-2xl border border-line bg-white/60 p-4">
-            <span className="font-bold text-navy-500">2. Font Size (Rule 7)</span>
-            <p className="mt-1 text-ink-muted">Table 1 ratio evaluated against PDP area.</p>
-          </div>
-          <div className="rounded-2xl border border-line bg-white/60 p-4">
-            <span className="font-bold text-navy-500">3. Placement</span>
-            <p className="mt-1 text-ink-muted">Principal Display Panel vs. statutory panel.</p>
-          </div>
-          <div className="rounded-2xl border border-line bg-white/60 p-4">
-            <span className="font-bold text-navy-500">4. Completeness</span>
-            <p className="mt-1 text-ink-muted">Absence of any mandatory declaration.</p>
-          </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* ================= SECTION: SEE LABEL GUARD IN ACTION (EVIDENCE-FIRST) ================= */}
       <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 border-t border-line">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] items-center">
-          <div>
-            <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-500">
-              <span className="h-px w-6 bg-current"></span>
-              Evidence-First Architecture
-            </p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-              See Label Guard in Action
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-              Label Guard never outputs a simple unverified verdict. Every adjudication is paired with the exact detected text token, OCR confidence percentage, statutory rule reference, and spatial evidence location on the packaging.
-            </p>
+        <ScrollReveal>
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] items-center">
+            <div>
+              <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-navy-500">
+                <span className="h-px w-6 bg-current"></span>
+                Evidence-First Architecture
+              </p>
+              <h2 className="mt-2 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+                See Label Guard in Action
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-ink-muted">
+                Label Guard never outputs a simple unverified verdict. Every adjudication is paired with the exact detected text token, OCR confidence percentage, statutory rule reference, and spatial evidence location on the packaging.
+              </p>
 
-            {/* Quick Demo Case Launchers */}
-            <div className="mt-8 space-y-3">
-              <Link
-                href="/inspect?case=compliant"
-                className="flex items-center justify-between rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4 hover:bg-emerald-500/10 transition-colors"
-              >
-                <div>
-                  <span className="text-xs font-bold text-emerald-800">Demo Case A: Compliant Commodity</span>
-                  <p className="text-[11px] text-ink-muted">Wheat Atta 5kg · 100% Declarations Detected · 98% OCR</p>
-                </div>
-                <ArrowRight className="size-4 text-emerald-700" />
-              </Link>
+              {/* Quick Demo Case Launchers */}
+              <div className="mt-8 space-y-3">
+                <Link
+                  href="/inspect?case=compliant"
+                  className="flex items-center justify-between rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4 hover:bg-emerald-500/10 transition-colors"
+                >
+                  <div>
+                    <span className="text-xs font-bold text-emerald-800">Demo Case A: Compliant Commodity</span>
+                    <p className="text-[11px] text-ink-muted">Wheat Atta 5kg · 100% Declarations Detected · 98% OCR</p>
+                  </div>
+                  <ArrowRight className="size-4 text-emerald-700" />
+                </Link>
 
-              <Link
-                href="/inspect?case=review"
-                className="flex items-center justify-between rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 hover:bg-amber-500/10 transition-colors"
-              >
-                <div>
-                  <span className="text-xs font-bold text-amber-800">Demo Case B: Low OCR Confidence / Review</span>
-                  <p className="text-[11px] text-ink-muted">Herbal Green Tea · Date Smudged by Crease (68% Conf) · Manual Verification</p>
-                </div>
-                <ArrowRight className="size-4 text-amber-700" />
-              </Link>
+                <Link
+                  href="/inspect?case=review"
+                  className="flex items-center justify-between rounded-2xl border border-amber-500/30 bg-amber-500/5 p-4 hover:bg-amber-500/10 transition-colors"
+                >
+                  <div>
+                    <span className="text-xs font-bold text-amber-800">Demo Case B: Low OCR Confidence / Review</span>
+                    <p className="text-[11px] text-ink-muted">Herbal Green Tea · Date Smudged by Crease (68% Conf) · Manual Verification</p>
+                  </div>
+                  <ArrowRight className="size-4 text-amber-700" />
+                </Link>
 
-              <Link
-                href="/inspect?case=violation"
-                className="flex items-center justify-between rounded-2xl border border-red-500/30 bg-red-500/5 p-4 hover:bg-red-500/10 transition-colors"
-              >
-                <div>
-                  <span className="text-xs font-bold text-red-800">Demo Case C: Configured Violation</span>
-                  <p className="text-[11px] text-ink-muted">Sunflower Oil 1L · Secondary Price Sticker Overprinted over MRP</p>
-                </div>
-                <ArrowRight className="size-4 text-red-700" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Right: Evidence Card Breakdown */}
-          <div className="glass-strong rounded-4xl p-6 sm:p-8 shadow-xl border border-navy-500/20 space-y-4">
-            <div className="flex items-center justify-between border-b border-line pb-3">
-              <div className="flex items-center gap-2">
-                <ShieldCheck className="size-5 text-emerald-600" />
-                <span className="text-xs font-bold text-ink">Sample Evidence Inspection Record</span>
+                <Link
+                  href="/inspect?case=violation"
+                  className="flex items-center justify-between rounded-2xl border border-red-500/30 bg-red-500/5 p-4 hover:bg-red-500/10 transition-colors"
+                >
+                  <div>
+                    <span className="text-xs font-bold text-red-800">Demo Case C: Configured Violation</span>
+                    <p className="text-[11px] text-ink-muted">Sunflower Oil 1L · Secondary Price Sticker Overprinted over MRP</p>
+                  </div>
+                  <ArrowRight className="size-4 text-red-700" />
+                </Link>
               </div>
-              <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
-                PASS
-              </span>
             </div>
 
-            <div className="space-y-3 text-xs">
-              <div className="flex justify-between py-1.5 border-b border-line-soft">
-                <span className="text-ink-muted font-medium">Declaration Field:</span>
-                <strong className="text-ink">Net Quantity Declaration</strong>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-line-soft">
-                <span className="text-ink-muted font-medium">Detected Text:</span>
-                <span className="font-mono font-bold text-navy-500">&ldquo;5 kg&rdquo;</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-line-soft">
-                <span className="text-ink-muted font-medium">OCR Confidence:</span>
-                <strong className="text-emerald-700">97% (High Confidence)</strong>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-line-soft">
-                <span className="text-ink-muted font-medium">Statutory Rule:</span>
-                <span className="font-mono text-ink">Rule 6(1)(c) read with Rule 8</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-line-soft">
-                <span className="text-ink-muted font-medium">Spatial Evidence:</span>
-                <span className="text-ink font-mono text-[11px]">BBox [X: 12%, Y: 50%, W: 35%, H: 11%]</span>
-              </div>
-              <div className="flex justify-between py-1.5">
-                <span className="text-ink-muted font-medium">Adjudication Reason:</span>
-                <span className="text-right text-ink max-w-[280px]">
-                  Standard metric unit (kg); numeral height 4.8mm exceeds Table 1 minimum 4.0mm.
+            {/* Right: Evidence Card Breakdown */}
+            <div className="glass-strong rounded-4xl p-6 sm:p-8 shadow-xl border border-navy-500/20 space-y-4">
+              <div className="flex items-center justify-between border-b border-line pb-3">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="size-5 text-emerald-600" />
+                  <span className="text-xs font-bold text-ink">Sample Evidence Inspection Record</span>
+                </div>
+                <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-700">
+                  PASS
                 </span>
               </div>
-            </div>
 
-            <div className="mt-4 pt-4 border-t border-line text-center">
-              <Link
-                href="/inspect"
-                className="btn-ink inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold"
-              >
-                <Scan className="size-3.5 text-saffron" />
-                <span>Launch Live Inspection Studio</span>
-              </Link>
+              <div className="space-y-3 text-xs">
+                <div className="flex justify-between py-1.5 border-b border-line-soft">
+                  <span className="text-ink-muted font-medium">Declaration Field:</span>
+                  <strong className="text-ink">Net Quantity Declaration</strong>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-line-soft">
+                  <span className="text-ink-muted font-medium">Detected Text:</span>
+                  <span className="font-mono font-bold text-navy-500">&ldquo;5 kg&rdquo;</span>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-line-soft">
+                  <span className="text-ink-muted font-medium">OCR Confidence:</span>
+                  <strong className="text-emerald-700">97% (High Confidence)</strong>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-line-soft">
+                  <span className="text-ink-muted font-medium">Statutory Rule:</span>
+                  <span className="font-mono text-ink">Rule 6(1)(c) read with Rule 8</span>
+                </div>
+                <div className="flex justify-between py-1.5 border-b border-line-soft">
+                  <span className="text-ink-muted font-medium">Spatial Evidence:</span>
+                  <span className="text-ink font-mono text-[11px]">BBox [X: 12%, Y: 50%, W: 35%, H: 11%]</span>
+                </div>
+                <div className="flex justify-between py-1.5">
+                  <span className="text-ink-muted font-medium">Adjudication Reason:</span>
+                  <span className="text-right text-ink max-w-[280px]">
+                    Standard metric unit (kg); numeral height 4.8mm exceeds Table 1 minimum 4.0mm.
+                  </span>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-4 border-t border-line text-center">
+                <Link
+                  href="/inspect"
+                  className="btn-ink inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold"
+                >
+                  <Scan className="size-3.5 text-saffron" />
+                  <span>Launch Live Inspection Studio</span>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
     </div>
   );

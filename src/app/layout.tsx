@@ -6,6 +6,7 @@ import { InspectionProvider } from "@/context/InspectionContext";
 import { GovernmentTopBar } from "@/components/GovernmentTopBar";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { AuthGuard } from "@/components/AuthGuard";
 
 export const metadata: Metadata = {
   title: "Label Guard — Packaged Commodity Compliance & Inspection Platform",
@@ -39,9 +40,9 @@ export default function RootLayout({
               {/* Main App Navbar */}
               <Navbar />
 
-              {/* Page Content */}
+              {/* Page Content with Prototype Route Protection */}
               <main id="main" className="flex-1">
-                {children}
+                <AuthGuard>{children}</AuthGuard>
               </main>
 
               {/* Official Footer */}

@@ -133,3 +133,25 @@ body::before {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(93, 102, 128, 0.45);
 }
+
+/* Scroll Reveal Utilities */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+

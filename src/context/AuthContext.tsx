@@ -7,6 +7,11 @@ import { currentOfficer } from "@/data/mockData";
 interface AuthContextType {
   user: UserProfile;
   role: UserRole;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  login: (email: string, password: string) => { success: boolean; error?: string };
+  loginAsDemo: () => void;
+  logout: () => void;
   switchRole: (role: UserRole) => void;
   canPerformAction: (action: "INSPECT" | "APPROVE_VIOLATION" | "EDIT_RULES" | "GENERATE_REPORT" | "DELETE_RECORD") => boolean;
 }
@@ -43,25 +48,85 @@ const roleProfiles: Record<UserRole, UserProfile> = {
 };
 
 const AuthContext = createContext<AuthContextType>({
-  user: currentOfficer,
-  role: "OFFICER",
+  user: roleProfiles.INSPECTOR,
+  role: "INSPECTOR",
+  isAuthenticated: false,
+  isLoading: true,
+  login: () => ({ success: false }),
+  loginAsDemo: () => {},
+  logout: () => {},
   switchRole: () => {},
   canPerformAction: () => true,
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [role, setRole] = useState<UserRole>("OFFICER");
+  const [role, setRole] = useState<UserRole>("INSPECTOR");
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const saved = localStorage.getItem("lg_role") as UserRole;
-    if (saved && roleProfiles[saved]) {
-      setRole(saved);
+    try {
+      const authSaved = localStorage.getItem("lg_authenticated");
+      const roleSaved = localStorage.getItem("lg_role") as UserRole;
+      if (authSaved === "true") {
+        setIsAuthenticated(true);
+        if (roleSaved && roleProfiles[roleSaved]) {
+          setRole(roleSaved);
+        } else {
+          setRole("INSPECTOR");
+        }
+      } else {
+        setIsAuthenticated(false);
+      }
+    } catch {
+      // ignore
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
+  const login = (email: string, pass: string): { success: boolean; error?: string } => {
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPass = pass.trim();
+    if (
+      (cleanEmail === "inspector@labelguard.demo" || cleanEmail === "insp-2026-042" || cleanEmail === "inspector") &&
+      cleanPass === "Demo@2026"
+    ) {
+      setIsAuthenticated(true);
+      setRole("INSPECTOR");
+      try {
+        localStorage.setItem("lg_authenticated", "true");
+        localStorage.setItem("lg_role", "INSPECTOR");
+      } catch {}
+      return { success: true };
+    }
+    return {
+      success: false,
+      error: "Invalid credentials. Please use the demo account credentials below (Demo@2026).",
+    };
+  };
+
+  const loginAsDemo = () => {
+    setIsAuthenticated(true);
+    setRole("INSPECTOR");
+    try {
+      localStorage.setItem("lg_authenticated", "true");
+      localStorage.setItem("lg_role", "INSPECTOR");
+    } catch {}
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    try {
+      localStorage.removeItem("lg_authenticated");
+    } catch {}
+  };
+
   const switchRole = (newRole: UserRole) => {
     setRole(newRole);
-    localStorage.setItem("lg_role", newRole);
+    try {
+      localStorage.setItem("lg_role", newRole);
+    } catch {}
   };
 
   const canPerformAction = (action: "INSPECT" | "APPROVE_VIOLATION" | "EDIT_RULES" | "GENERATE_REPORT" | "DELETE_RECORD"): boolean => {
@@ -86,6 +151,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       value={{
         user: roleProfiles[role],
         role,
+        isAuthenticated,
+        isLoading,
+        login,
+        loginAsDemo,
+        logout,
         switchRole,
         canPerformAction,
       }}

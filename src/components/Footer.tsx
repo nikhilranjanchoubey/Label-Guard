@@ -3,12 +3,19 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { PhoneCall, ShieldCheck, ExternalLink, Scale } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
 export const Footer: React.FC = () => {
+  const pathname = usePathname();
   const { t } = useLanguage();
+
+  // Omit footer on /signin for clean authentication view
+  if (pathname === "/signin") {
+    return null;
+  }
 
   return (
     <footer className="mt-auto px-3 pb-3 pt-12 sm:px-4" id="footer">

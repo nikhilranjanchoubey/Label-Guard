@@ -16,14 +16,18 @@ import {
   Info,
   CheckCircle2,
   UserCheck,
+  LogIn,
+  LogOut,
+  ChevronDown,
 } from "lucide-react";
 
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const { t } = useLanguage();
-  const { user, role } = useAuth();
+  const { user, role, isAuthenticated, logout } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
 
   // Structured Primary Navigation
   const primaryLinks = [
@@ -68,6 +72,16 @@ export const Navbar: React.FC = () => {
     },
   ];
 
+  const isNavActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
+
+  // Hide the main application navigation on /signin for clean auth layout
+  if (pathname === "/signin") {
+    return null;
+  }
+
   return (
     <div className="sticky top-0 z-40 px-3 pt-2 sm:px-4">
       <div className="glass-strong mx-auto flex w-full max-w-7xl items-center justify-between gap-3 rounded-2xl px-3.5 py-2 sm:px-5">
@@ -82,21 +96,15 @@ export const Navbar: React.FC = () => {
           {/* Primary Navigation */}
           <div className="flex items-center gap-0.5">
             {primaryLinks.map((item) => {
-              const isActive =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(item.href);
-              const isInspect = item.href === "/inspect";
+              const isActive = isNavActive(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-full px-2.5 py-1.5 text-xs font-semibold transition-all duration-150 ${
+                  className={`rounded-full px-2.5 py-1.5 text-xs transition-all duration-150 ${
                     isActive
-                      ? "bg-navy-950 text-white shadow-xs"
-                      : isInspect
-                      ? "text-blue-700 font-bold hover:bg-blue-50/80"
-                      : "text-slate-700 hover:bg-white hover:text-navy-950"
+                      ? "bg-blue-600 text-white shadow-sm font-bold"
+                      : "text-slate-900 hover:text-blue-700 hover:bg-slate-100/80 font-semibold"
                   }`}
                 >
                   {item.label}
@@ -111,15 +119,15 @@ export const Navbar: React.FC = () => {
           {/* Secondary Navigation (visually quieter) */}
           <div className="flex items-center gap-0.5">
             {secondaryLinks.map((item) => {
-              const isActive = pathname.startsWith(item.href);
+              const isActive = isNavActive(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-full px-2.5 py-1.5 text-xs font-medium transition-all duration-150 ${
+                  className={`rounded-full px-2.5 py-1.5 text-xs transition-all duration-150 ${
                     isActive
-                      ? "bg-navy-950 text-white shadow-xs font-semibold"
-                      : "text-slate-500 hover:bg-white hover:text-navy-900"
+                      ? "bg-blue-600 text-white shadow-sm font-bold"
+                      : "text-slate-900 hover:text-blue-700 hover:bg-slate-100/80 font-semibold"
                   }`}
                 >
                   {item.label}
@@ -192,33 +200,87 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* Primary Action CTA: Scan Label */}
+          {/* Primary Action CTA: Scan Label (points to /inspect if authed, /signin if logged out) */}
           <Link
-            href="/inspect"
+            href={isAuthenticated ? "/inspect" : "/signin"}
             className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 text-xs font-bold shadow-sm transition-all hover:shadow"
           >
             <Scan className="size-3.5 text-blue-200" />
             <span>Scan Label</span>
           </Link>
 
-          {/* User Area: Prototype Inspector */}
-          <Link
-            href="/dashboard"
-            className="hidden xl:inline-flex items-center gap-2 rounded-full border border-line bg-white/80 py-1 pl-1.5 pr-2.5 text-xs font-medium text-ink transition-colors hover:bg-white shadow-2xs"
-            title={`Active Profile: ${user.name} (${role})`}
-          >
-            <div className="flex size-6 items-center justify-center rounded-full bg-navy-950 text-white font-bold text-[10px]">
-              <UserCheck className="size-3.5 text-emerald-400" />
+          {/* User Area: Prototype Inspector Profile or Sign In */}
+          {isAuthenticated ? (
+            <div className="relative hidden xl:block">
+              <button
+                onClick={() => setProfileDropdownOpen(!profileDropdownOpen)}
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-white/80 py-1 pl-1.5 pr-2.5 text-xs font-medium text-ink transition-colors hover:bg-white shadow-2xs"
+                title={`Active Profile: Prototype Inspector (${role})`}
+                aria-label="Toggle user profile menu"
+              >
+                <div className="flex size-6 items-center justify-center rounded-full bg-navy-950 text-white font-bold text-[10px]">
+                  <UserCheck className="size-3.5 text-emerald-400" />
+                </div>
+                <div className="text-left whitespace-nowrap">
+                  <span className="block text-[11px] font-bold leading-tight text-navy-950">
+                    Prototype Inspector
+                  </span>
+                  <span className="block text-[8.5px] text-slate-500 font-semibold tracking-wide uppercase">
+                    DEMO ROLE
+                  </span>
+                </div>
+                <ChevronDown className="size-3 text-slate-400" />
+              </button>
+
+              {/* Profile Dropdown */}
+              {profileDropdownOpen && (
+                <div
+                  className="glass-strong absolute right-0 top-full z-50 mt-2 w-64 rounded-3xl p-3 shadow-2xl border border-line"
+                  onMouseLeave={() => setProfileDropdownOpen(false)}
+                >
+                  <div className="border-b border-line pb-2.5 px-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-ink">Prototype Inspector</span>
+                      <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[9px] font-bold text-emerald-700">
+                        INSPECTOR
+                      </span>
+                    </div>
+                    <p className="mt-0.5 text-[10px] text-ink-muted">inspector@labelguard.demo</p>
+                    <p className="mt-1 text-[9.5px] font-mono text-slate-500">Badge: INSP-DEMO-2026</p>
+                  </div>
+
+                  <div className="mt-2 space-y-1">
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setProfileDropdownOpen(false)}
+                      className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-ink transition-colors"
+                    >
+                      <span>Enforcement Dashboard</span>
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setProfileDropdownOpen(false);
+                        logout();
+                        window.location.href = "/signin";
+                      }}
+                      className="flex w-full items-center gap-2 rounded-xl px-2.5 py-1.5 text-xs font-bold text-red-600 hover:bg-red-50 transition-colors"
+                    >
+                      <LogOut className="size-3.5 text-red-500" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-            <div className="text-left whitespace-nowrap">
-              <span className="block text-[11px] font-bold leading-tight text-navy-950">
-                Prototype Inspector
-              </span>
-              <span className="block text-[8.5px] text-slate-500 font-semibold tracking-wide uppercase">
-                DEMO ROLE
-              </span>
-            </div>
-          </Link>
+          ) : (
+            <Link
+              href="/signin"
+              className="hidden xl:inline-flex items-center gap-1.5 rounded-full border border-line bg-white/80 px-3 py-1.5 text-xs font-bold text-ink hover:bg-white hover:text-blue-600 shadow-2xs transition-colors"
+            >
+              <LogIn className="size-3.5 text-blue-600" />
+              <span>Sign In</span>
+            </Link>
+          )}
 
           {/* Mobile Menu Toggle */}
           <button
@@ -233,32 +295,60 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="glass-strong mt-2 flex flex-col rounded-3xl p-4 shadow-xl lg:hidden">
+        <div className="glass-strong mt-2 flex flex-col rounded-3xl p-4 shadow-xl lg:hidden border border-line">
           <div className="flex items-center justify-between border-b border-line pb-3">
-            <div className="flex items-center gap-2">
-              <UserCheck className="size-4 text-navy-500" />
-              <span className="text-xs font-bold text-ink">Prototype Inspector</span>
-            </div>
-            <span className="rounded-full bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 text-[10px] font-bold text-blue-700">
-              Demo Enforcement
-            </span>
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2">
+                <div className="flex size-6 items-center justify-center rounded-full bg-navy-950 text-white font-bold text-[10px]">
+                  <UserCheck className="size-3.5 text-emerald-400" />
+                </div>
+                <div>
+                  <span className="text-xs font-bold text-ink block leading-tight">Prototype Inspector</span>
+                  <span className="text-[9px] text-emerald-700 font-semibold uppercase">DEMO ROLE</span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-ink">Guest Session</span>
+              </div>
+            )}
+
+            {isAuthenticated ? (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  logout();
+                  window.location.href = "/signin";
+                }}
+                className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2.5 py-1 text-[10px] font-bold text-red-700 hover:bg-red-500/20"
+              >
+                <LogOut className="size-3 text-red-600" />
+                <span>Sign Out</span>
+              </button>
+            ) : (
+              <Link
+                href="/signin"
+                onClick={() => setMobileMenuOpen(false)}
+                className="inline-flex items-center gap-1 rounded-full bg-blue-500/10 px-2.5 py-1 text-[10px] font-bold text-blue-700 hover:bg-blue-500/20"
+              >
+                <LogIn className="size-3 text-blue-600" />
+                <span>Sign In</span>
+              </Link>
+            )}
           </div>
 
           <div className="mt-3 grid grid-cols-2 gap-1.5">
             {allNavLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
+              const isActive = isNavActive(link.href);
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`rounded-xl px-3 py-2 text-xs font-semibold transition-colors ${
+                  className={`rounded-xl px-3 py-2 text-xs transition-colors ${
                     isActive
-                      ? "bg-navy-950 text-white"
-                      : "text-ink hover:bg-white/80"
+                      ? "bg-blue-600 text-white font-bold"
+                      : "text-slate-900 hover:bg-slate-100 font-semibold"
                   }`}
                 >
                   {link.label}
@@ -269,7 +359,7 @@ export const Navbar: React.FC = () => {
 
           <div className="mt-4 pt-3 border-t border-line">
             <Link
-              href="/inspect"
+              href={isAuthenticated ? "/inspect" : "/signin"}
               onClick={() => setMobileMenuOpen(false)}
               className="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-blue-700"
             >

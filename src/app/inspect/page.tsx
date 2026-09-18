@@ -54,38 +54,28 @@ const samplePresets = [
       manufacturer: {
         value: "ITC Limited, 37 J.L. Nehru Road, Kolkata - 700071, West Bengal",
         confidence: 0.98,
-        bbox: { x: 12, y: 72, width: 75, height: 9 },
+        bbox: { x: 18, y: 29, width: 22, height: 9 },
       },
       genericName: {
         value: "Whole Wheat Atta (Wholemeal Wheat Flour)",
         confidence: 0.99,
-        bbox: { x: 15, y: 25, width: 70, height: 5 },
+        bbox: { x: 22, y: 47, width: 56, height: 11 },
       },
       netQuantity: {
         value: "5 kg",
         confidence: 0.97,
         fontSizeMm: 4.8,
-        bbox: { x: 12, y: 50, width: 35, height: 11 },
+        bbox: { x: 90, y: 32, width: 8, height: 48 },
       },
       mrp: {
         value: "₹ 285.00 (INCL. OF ALL TAXES)",
         confidence: 0.98,
-        bbox: { x: 51, y: 50, width: 37, height: 11 },
-      },
-      mfgDate: {
-        value: "Pkd: 02/2026",
-        confidence: 0.95,
-        bbox: { x: 12, y: 63, width: 38, height: 7 },
+        bbox: { x: 36, y: 60, width: 28, height: 14 },
       },
       consumerCare: {
-        value: "Executive - Consumer Care, ITC Limited, Toll Free: 1800-425-4444 | itccares@itc.in",
+        value: "Executive - Consumer Care, ITC Limited, Toll Free: 1800-425-4444 | www.itcportal.com",
         confidence: 0.94,
-        bbox: { x: 12, y: 83, width: 75, height: 9 },
-      },
-      unitSalePrice: {
-        value: "₹ 57.00 / kg",
-        confidence: 0.96,
-        bbox: { x: 51, y: 63, width: 37, height: 7 },
+        bbox: { x: 12, y: 16, width: 76, height: 8 },
       },
     } as RawExtractionInput,
   },
@@ -104,35 +94,25 @@ const samplePresets = [
     description: "Demonstrates human-in-the-loop review. Manufacturing date extracted with low OCR confidence (68%) due to packaging fold/crease. Flagged for manual verification.",
     raw: {
       manufacturer: {
-        value: "Organic India Pvt. Ltd., Plot No. 266, Faizabad Road, Kamta, Lucknow - 226028",
-        confidence: 0.95,
-        bbox: { x: 10, y: 70, width: 80, height: 10 },
+        value: "Girnar Food & Beverages Pvt. Ltd., Umbergaon, Gujarat",
+        confidence: 0.98,
+        bbox: { x: 29, y: 8, width: 38, height: 11 },
       },
       genericName: {
-        value: "Herbal Green Tea Infusion",
+        value: "Herbal Green Tea Infusion (Detox Desi Kahwa)",
         confidence: 0.96,
-        bbox: { x: 15, y: 25, width: 70, height: 6 },
+        bbox: { x: 18, y: 23, width: 64, height: 17 },
       },
       netQuantity: {
-        value: "250 g",
+        value: "10 Tea Bags - Net Wt. 0.881 oz (25g)",
         confidence: 0.94,
         fontSizeMm: 3.2,
-        bbox: { x: 15, y: 44, width: 32, height: 9 },
-      },
-      mrp: {
-        value: "₹ 295.00 (INCL. OF ALL TAXES)",
-        confidence: 0.95,
-        bbox: { x: 52, y: 44, width: 36, height: 9 },
+        bbox: { x: 14, y: 91, width: 72, height: 6 },
       },
       mfgDate: {
         value: "01/2026 (Unclear character on fold)",
         confidence: 0.68, // Low confidence threshold
-        bbox: { x: 15, y: 56, width: 60, height: 7 },
-      },
-      consumerCare: {
-        value: "Toll Free: 1800-180-5105 | care@organicindia.com",
-        confidence: 0.92,
-        bbox: { x: 10, y: 82, width: 80, height: 10 },
+        bbox: { x: 33, y: 86, width: 34, height: 6 },
       },
     } as RawExtractionInput,
   },
@@ -150,36 +130,20 @@ const samplePresets = [
     pdpArea: 240,
     description: "Demonstrates clear violation detection under Rule 6(1)(da) & Section 36. Retailer pasted secondary yellow sticker of ₹145 over manufacturer printed ₹125 MRP.",
     raw: {
-      manufacturer: {
-        value: "Adani Wilmar Limited, Fortune House, Near Navrangpura Rly. Crossing, Ahmedabad - 380009",
-        confidence: 0.94,
-        bbox: { x: 17, y: 70, width: 66, height: 9 },
-      },
       genericName: {
-        value: "Refined Sunflower Oil",
+        value: "Refined Sunflower Oil (Sunlite)",
         confidence: 0.96,
-        bbox: { x: 18, y: 21, width: 64, height: 4 },
-      },
-      netQuantity: {
-        value: "1 L (Equivalent 910g at 30°C)",
-        confidence: 0.95,
-        fontSizeMm: 3.5,
-        bbox: { x: 17, y: 43, width: 31, height: 11 },
+        bbox: { x: 33, y: 52, width: 32, height: 29 },
       },
       mrp: {
         value: "₹ 145.00 (Yellow sticker overlay pasted over original printed ₹125)",
         confidence: 0.89,
-        bbox: { x: 50, y: 43, width: 33, height: 11 },
-      },
-      mfgDate: {
-        value: "Mfg: 02/2026",
-        confidence: 0.92,
-        bbox: { x: 17, y: 62, width: 66, height: 6 },
+        bbox: { x: 34, y: 81, width: 14, height: 7 },
       },
       consumerCare: {
-        value: "Consumer Care Cell, Toll Free: 1800-233-9999 | care@adaniwilmar.in",
-        confidence: 0.93,
-        bbox: { x: 17, y: 80, width: 66, height: 8 },
+        value: "Consumer Redressal Web Care: fortunefoods.com",
+        confidence: 0.94,
+        bbox: { x: 4, y: 93, width: 30, height: 6 },
       },
     } as RawExtractionInput,
   },
@@ -412,7 +376,8 @@ function InspectContent() {
     }, 2200);
   };
 
-  const activeImage = uploadedImages[0]?.url || "/products/atta/atta-front.jpg";
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const activeImage = uploadedImages[activeImageIndex]?.url || uploadedImages[0]?.url || "/products/atta/atta-front.jpg";
 
   // Filter findings in Stage 3
   const displayedFindings = engineResult
@@ -905,52 +870,70 @@ function InspectContent() {
                 </div>
               </div>
 
+              {/* Panel Selector (if multiple images uploaded/available) */}
+              {uploadedImages.length > 1 && (
+                <div className="mt-3 flex items-center gap-1.5 rounded-full bg-slate-100 p-1 border border-line">
+                  {uploadedImages.map((img, idx) => (
+                    <button
+                      key={img.id || idx}
+                      onClick={() => setActiveImageIndex(idx)}
+                      className={`px-3 py-1 text-xs rounded-full font-bold transition-all ${
+                        activeImageIndex === idx ? "bg-navy-900 text-white shadow-sm" : "text-ink-muted hover:text-ink"
+                      }`}
+                    >
+                      {img.label || `Panel ${idx + 1}`}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               {/* Viewer Stage */}
-              <div className="relative mt-4 flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-3xl bg-slate-50 border border-line p-4">
+              <div className="relative mt-4 flex min-h-[460px] max-h-[520px] w-full items-center justify-center overflow-hidden rounded-3xl bg-slate-100/60 p-4 border border-line">
                 <div
-                  className="relative size-full transition-transform duration-200"
+                  className="relative inline-block transition-transform duration-200 select-none"
                   style={{ transform: `scale(${zoomLevel})` }}
                 >
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={activeImage}
                     alt={productName}
-                    fill
-                    className="object-contain"
-                    priority
+                    className="block max-h-[460px] w-auto max-w-full rounded-2xl object-contain shadow-md mx-auto"
                   />
 
-                  {/* Render Spatial Bounding Boxes */}
-                  {engineResult.findings.map((f) => {
-                    if (!f.bbox) return null;
-                    const isSelected = selectedFieldId === f.id;
-                    const borderClass =
-                      f.status === "COMPLIANT"
-                        ? "border-emerald-500 bg-emerald-500/15"
-                        : f.status === "NON_COMPLIANT" || f.status === "NOT_DETECTED"
-                        ? "border-red-500 bg-red-500/20"
-                        : "border-amber-500 bg-amber-500/20";
+                  {/* Render Spatial Bounding Boxes locked 1:1 to image */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {engineResult.findings.map((f) => {
+                      if (!f.bbox) return null;
+                      const isSelected = selectedFieldId === f.id;
+                      const borderClass =
+                        f.status === "COMPLIANT"
+                          ? "border-emerald-500 bg-emerald-500/20"
+                          : f.status === "NON_COMPLIANT" || f.status === "NOT_DETECTED"
+                          ? "border-red-500 bg-red-500/25 animate-pulse"
+                          : "border-amber-500 bg-amber-500/25";
 
-                    return (
-                      <div
-                        key={f.id}
-                        onClick={() => setSelectedFieldId(f.id)}
-                        style={{
-                          left: `${f.bbox.x}%`,
-                          top: `${f.bbox.y}%`,
-                          width: `${f.bbox.width}%`,
-                          height: `${f.bbox.height}%`,
-                        }}
-                        className={`absolute cursor-pointer rounded-lg border-2 border-dashed transition-all duration-200 ${borderClass} ${
-                          isSelected ? "ring-4 ring-navy-500 ring-offset-2 z-30" : "z-10 hover:scale-105"
-                        }`}
-                        title={`${f.fieldLabel}: ${f.extractedValue} (${Math.round(f.confidence * 100)}% conf)`}
-                      >
-                        <span className="absolute -top-4 left-0 rounded bg-navy-900 px-1 py-0.5 font-mono text-[9px] font-bold text-white shadow">
-                          [{f.fieldKey.toUpperCase()}]
-                        </span>
-                      </div>
-                    );
-                  })}
+                      return (
+                        <div
+                          key={f.id}
+                          onClick={() => setSelectedFieldId(f.id)}
+                          style={{
+                            left: `${f.bbox.x}%`,
+                            top: `${f.bbox.y}%`,
+                            width: `${f.bbox.width}%`,
+                            height: `${f.bbox.height}%`,
+                          }}
+                          className={`absolute pointer-events-auto cursor-pointer rounded-lg border-2 border-dashed transition-all duration-200 ${borderClass} ${
+                            isSelected ? "ring-4 ring-navy-500 ring-offset-2 z-30" : "z-10 hover:scale-105"
+                          }`}
+                          title={`${f.fieldLabel}: ${f.extractedValue} (${Math.round(f.confidence * 100)}% conf)`}
+                        >
+                          <span className="absolute -top-4 left-0 rounded bg-navy-900 px-1 py-0.5 font-mono text-[9px] font-bold text-white shadow whitespace-nowrap">
+                            [{f.fieldKey.toUpperCase()}]
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 

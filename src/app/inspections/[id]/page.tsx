@@ -38,6 +38,8 @@ export default function InspectionDetailPage() {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
   const [editingNotes, setEditingNotes] = useState(record?.officerNotes || "");
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const currentImg = record?.images?.[activeImgIndex] || record?.images?.[0];
 
   if (!record) {
     return (
@@ -214,55 +216,73 @@ export default function InspectionDetailPage() {
             </div>
           </div>
 
+          {/* Panel Selector (if multiple images attached) */}
+          {record.images.length > 1 && (
+            <div className="mt-3 flex items-center gap-1.5 rounded-full bg-slate-100 p-1 border border-line">
+              {record.images.map((img, idx) => (
+                <button
+                  key={img.id || idx}
+                  onClick={() => setActiveImgIndex(idx)}
+                  className={`px-3 py-1 text-xs rounded-full font-bold transition-all ${
+                    activeImgIndex === idx ? "bg-navy-900 text-white shadow-sm" : "text-ink-muted hover:text-ink"
+                  }`}
+                >
+                  {img.label || `Panel ${idx + 1}`}
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* Canvas Box */}
-          <div className="relative mt-4 flex min-h-[480px] w-full items-center justify-center overflow-hidden rounded-3xl bg-slate-100/60 p-4 border border-line">
+          <div className="relative mt-4 flex min-h-[480px] max-h-[540px] w-full items-center justify-center overflow-hidden rounded-3xl bg-slate-100/60 p-4 border border-line">
             <div
-              className="relative transition-transform duration-200"
+              className="relative inline-block transition-transform duration-200 select-none"
               style={{
                 transform: `scale(${zoomLevel})`,
-                width: "380px",
-                height: "475px",
               }}
             >
-              <Image
-                src={record.images[0]?.url || "/products/atta/atta-front.jpg"}
-                alt="Package Scan"
-                fill
-                className="object-contain"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={currentImg?.url || "/products/atta/atta-front.jpg"}
+                alt={currentImg?.label || "Package Scan"}
+                className="block max-h-[480px] w-auto max-w-full rounded-2xl object-contain shadow-md mx-auto"
               />
 
-              {record.findings.map((f) => {
-                if (!f.bbox) return null;
-                const isSelected = selectedFieldId === f.id;
-                const colorClass =
-                  f.status === "COMPLIANT"
-                    ? "border-emerald-500 bg-emerald-500/15"
-                    : f.status === "NON_COMPLIANT"
-                    ? "border-red-500 bg-red-500/25 animate-pulse"
-                    : f.status === "WARNING"
-                    ? "border-amber-500 bg-amber-500/20"
-                    : "border-indigo-500 bg-indigo-500/20";
+              {/* Bounding box layer precisely locked to rendered image */}
+              <div className="absolute inset-0 pointer-events-none">
+                {record.findings.map((f) => {
+                  if (!f.bbox) return null;
+                  const isSelected = selectedFieldId === f.id;
+                  const colorClass =
+                    f.status === "COMPLIANT"
+                      ? "border-emerald-500 bg-emerald-500/20"
+                      : f.status === "NON_COMPLIANT"
+                      ? "border-red-500 bg-red-500/25 animate-pulse"
+                      : f.status === "WARNING"
+                      ? "border-amber-500 bg-amber-500/25"
+                      : "border-indigo-500 bg-indigo-500/25";
 
-                return (
-                  <div
-                    key={f.id}
-                    onClick={() => setSelectedFieldId(f.id)}
-                    className={`absolute cursor-pointer rounded border-2 transition-all duration-200 ${colorClass} ${
-                      isSelected ? "ring-4 ring-navy-500 z-30" : "z-10 hover:z-20"
-                    }`}
-                    style={{
-                      left: `${f.bbox.x}%`,
-                      top: `${f.bbox.y}%`,
-                      width: `${f.bbox.width}%`,
-                      height: `${f.bbox.height}%`,
-                    }}
-                  >
-                    <span className="absolute -top-4 left-0 rounded bg-ink px-1 py-0.2 font-mono text-[8px] font-bold text-white shadow">
-                      {f.fieldLabel.split(" ")[0]} ({Math.round(f.confidence * 100)}%)
-                    </span>
-                  </div>
-                );
-              })}
+                  return (
+                    <div
+                      key={f.id}
+                      onClick={() => setSelectedFieldId(f.id)}
+                      className={`absolute pointer-events-auto cursor-pointer rounded border-2 transition-all duration-200 ${colorClass} ${
+                        isSelected ? "ring-4 ring-navy-500 z-30" : "z-10 hover:z-20"
+                      }`}
+                      style={{
+                        left: `${f.bbox.x}%`,
+                        top: `${f.bbox.y}%`,
+                        width: `${f.bbox.width}%`,
+                        height: `${f.bbox.height}%`,
+                      }}
+                    >
+                      <span className="absolute -top-4 left-0 rounded bg-ink px-1 py-0.2 font-mono text-[8px] font-bold text-white shadow whitespace-nowrap">
+                        {f.fieldLabel.split(" ")[0]} ({Math.round(f.confidence * 100)}%)
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
