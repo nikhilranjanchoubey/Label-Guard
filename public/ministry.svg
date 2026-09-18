@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 80" fill="none">
+  <!-- Lion Capital Emblem Silhouette -->
+  <g transform="translate(10, 4)" fill="#121a3e">
+    <path d="M30 4C28 4 26 5 25 7C24 5 22 4 20 4C17 4 15 6 15 9C15 11 16 13 18 14C17 15 16 17 16 19C16 23 19 26 23 27C21 28 20 30 20 33C20 37 23 40 27 41V47H17V51H37V47H27V41C31 40 34 37 34 33C34 30 33 28 31 27C35 26 38 23 38 19C38 17 37 15 36 14C38 13 39 11 39 9C39 6 37 4 34 4C32 4 30 5 29 7C28 5 26 4 24 4Z" fill-opacity="0.85"/>
+    <rect x="12" y="52" width="30" height="3" rx="1.5" fill="#ff9a3c"/>
+    <rect x="12" y="56" width="30" height="3" rx="1.5" fill="#149c4a"/>
+    <circle cx="27" cy="64" r="4.5" stroke="#3d5afe" stroke-width="1.2" fill="none"/>
+    <path d="M27 60V68M23 64H31M24.2 61.2L29.8 66.8M24.2 66.8L29.8 61.2" stroke="#3d5afe" stroke-width="0.8"/>
+  </g>
+
+  <!-- Typography -->
+  <text x="72" y="24" font-family="'Noto Sans Devanagari', system-ui, sans-serif" font-size="14" font-weight="700" fill="#0b1026" letter-spacing="-0.2">
+    उपभोक्ता मामले विभाग
+  </text>
+  <text x="72" y="42" font-family="'Geist', 'Inter', system-ui, sans-serif" font-size="13" font-weight="700" fill="#0b1026" letter-spacing="-0.3">
+    Department of Consumer Affairs
+  </text>
+  <text x="72" y="58" font-family="'Geist', system-ui, sans-serif" font-size="10.5" font-weight="500" fill="#5d6680" letter-spacing="0.1">
+    Ministry of Consumer Affairs, Food &amp; Public Distribution · Government of India
+  </text>
+  <text x="72" y="70" font-family="'Geist', system-ui, sans-serif" font-size="9" font-weight="600" fill="#ff9a3c" letter-spacing="0.4">
+    LEGAL METROLOGY DIVISION (PACKAGED COMMODITIES)
+  </text>
+</svg>

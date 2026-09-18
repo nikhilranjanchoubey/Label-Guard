@@ -1,46 +1,54 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_Devanagari, JetBrains_Mono } from "next/font/google";
-import "@/styles/globals.css";
-import { I18nProvider } from "@/lib/i18n";
-import { ToastProvider } from "@/components/ui/Toast";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const notoSansDevanagari = Noto_Sans_Devanagari({
-  subsets: ["devanagari"],
-  variable: "--font-noto-sans-devanagari",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-});
+import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { InspectionProvider } from "@/context/InspectionContext";
+import { GovernmentTopBar } from "@/components/GovernmentTopBar";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "LabelGuard — Compliance & Inspection Platform",
-  description: "AI-assisted bilingual packaged commodity compliance verification platform for Legal Metrology inspection workflows.",
+  title: "Label Guard — Packaged Commodity Compliance & Inspection Platform",
+  description:
+    "AI-assisted packaged commodity inspection and compliance analysis platform under the Legal Metrology (Packaged Commodities) Rules, 2011. Smart India Hackathon Problem Statement 26034.",
+  icons: {
+    icon: "/logo.svg",
+  },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" className={`${inter.variable} ${notoSansDevanagari.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans antialiased bg-background text-slate-900 min-h-screen">
-        <I18nProvider>
-          <ToastProvider>
-            {children}
-          </ToastProvider>
-        </I18nProvider>
+    <html lang="en" className="h-full antialiased">
+      <body className="min-h-full flex flex-col">
+        <LanguageProvider>
+          <AuthProvider>
+            <InspectionProvider>
+              {/* Scroll progress line at very top */}
+              <span
+                aria-hidden="true"
+                className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-gradient-to-r from-indigo-500 via-sky-400 to-orange-400"
+              />
+
+              {/* Official Government Top Bar */}
+              <GovernmentTopBar />
+
+              {/* Main App Navbar */}
+              <Navbar />
+
+              {/* Page Content */}
+              <main id="main" className="flex-1">
+                {children}
+              </main>
+
+              {/* Official Footer */}
+              <Footer />
+            </InspectionProvider>
+          </AuthProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

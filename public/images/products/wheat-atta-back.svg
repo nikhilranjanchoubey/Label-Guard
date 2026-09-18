@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" fill="none">
+  <rect x="60" y="40" width="680" height="920" rx="36" fill="#f8fafc" stroke="#121a3e" stroke-width="4"/>
+  <line x1="80" y1="90" x2="720" y2="90" stroke="#cbd5e1" stroke-width="4" stroke-dasharray="12 8"/>
+
+  <text x="400" y="140" font-family="sans-serif" font-size="24" font-weight="700" fill="#121a3e" text-anchor="middle">
+    NUTRITIONAL INFORMATION &amp; STATUTORY DECLARATIONS
+  </text>
+
+  <!-- Nutrition Table -->
+  <g transform="translate(100, 180)">
+    <rect x="0" y="0" width="600" height="240" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <line x1="0" y1="40" x2="600" y2="40" stroke="#cbd5e1" stroke-width="1.5"/>
+    <line x1="300" y1="0" x2="300" y2="240" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="20" y="28" font-family="sans-serif" font-size="14" font-weight="700">Nutrients per 100g</text>
+    <text x="320" y="28" font-family="sans-serif" font-size="14" font-weight="700">Approx. Values</text>
+    <text x="20" y="75" font-family="sans-serif" font-size="14">Energy (kcal)</text>
+    <text x="320" y="75" font-family="sans-serif" font-size="14">364</text>
+    <text x="20" y="115" font-family="sans-serif" font-size="14">Protein (g)</text>
+    <text x="320" y="115" font-family="sans-serif" font-size="14">11.8</text>
+    <text x="20" y="155" font-family="sans-serif" font-size="14">Carbohydrate (g)</text>
+    <text x="320" y="155" font-family="sans-serif" font-size="14">74.2</text>
+    <text x="20" y="195" font-family="sans-serif" font-size="14">Dietary Fibre (g)</text>
+    <text x="320" y="195" font-family="sans-serif" font-size="14">11.1</text>
+  </g>
+
+  <!-- Legal Metrology Notice Block -->
+  <g transform="translate(100, 460)">
+    <rect x="0" y="0" width="600" height="150" rx="12" fill="#eff6ff" stroke="#3d5afe" stroke-width="2"/>
+    <text x="20" y="35" font-family="sans-serif" font-size="14" font-weight="700" fill="#1e3a8a">
+      LEGAL METROLOGY (PACKAGED COMMODITIES) RULES, 2011
+    </text>
+    <text x="20" y="65" font-family="sans-serif" font-size="13" font-weight="500" fill="#0f172a">
+      Complies with all statutory requirements under Legal Metrology Act, 2009.
+    </text>
+    <text x="20" y="95" font-family="sans-serif" font-size="13" font-weight="500" fill="#0f172a">
+      For package verification visit: https://doca.gov.in/legal-metrology
+    </text>
+    <text x="20" y="125" font-family="sans-serif" font-size="12" font-weight="700" fill="#2563eb">
+      BARCODE: 8901030384129 · RECYCLABLE PACKAGING CODE: 04 (LDPE)
+    </text>
+  </g>
+</svg>

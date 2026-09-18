@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" fill="none">
+  <!-- Sack Body -->
+  <defs>
+    <linearGradient id="sack-bg" x1="0" y1="0" x2="800" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fdfbf7"/>
+      <stop offset="50%" stop-color="#f6efe3"/>
+      <stop offset="100%" stop-color="#ebdfcb"/>
+    </linearGradient>
+    <linearGradient id="brand-banner" x1="0" y1="0" x2="800" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#b42318"/>
+      <stop offset="100%" stop-color="#7a140f"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Pouch Outline with stitched top -->
+  <rect x="60" y="40" width="680" height="920" rx="36" fill="url(#sack-bg)" stroke="#121a3e" stroke-width="4"/>
+  <!-- Top stitch line -->
+  <line x1="80" y1="90" x2="720" y2="90" stroke="#b42318" stroke-width="6" stroke-dasharray="16 10"/>
+
+  <!-- Brand Banner -->
+  <rect x="100" y="120" width="600" height="110" rx="20" fill="url(#brand-banner)"/>
+  <text x="400" y="175" font-family="'Instrument Serif', serif" font-size="52" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="2">
+    AASHIRVAAD
+  </text>
+  <text x="400" y="210" font-family="sans-serif" font-size="16" font-weight="600" fill="#fef08a" text-anchor="middle" letter-spacing="4">
+    100% WHOLE WHEAT ATTA · SHARBATI
+  </text>
+
+  <!-- Generic Name Field -->
+  <rect x="120" y="250" width="560" height="50" rx="10" fill="#ffffff" stroke="#e2e8f0" stroke-width="2"/>
+  <text x="140" y="282" font-family="sans-serif" font-size="16" font-weight="700" fill="#121a3e">
+    GENERIC NAME: WHOLE WHEAT FLOUR (ATTA)
+  </text>
+
+  <!-- Illustration of Wheat Sheaves -->
+  <g transform="translate(300, 320)">
+    <circle cx="100" cy="80" r="70" fill="#fef3c7" opacity="0.6"/>
+    <path d="M100 150 C90 110 70 70 50 30 M100 150 C110 110 130 70 150 30 M100 150 L100 20" stroke="#d97706" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="60" cy="50" rx="10" ry="20" transform="rotate(-30 60 50)" fill="#f59e0b"/>
+    <ellipse cx="140" cy="50" rx="10" ry="20" transform="rotate(30 140 50)" fill="#f59e0b"/>
+    <ellipse cx="100" cy="30" rx="10" ry="22" fill="#d97706"/>
+  </g>
+
+  <!-- Principal Display Panel (PDP) Box: Net Qty & MRP -->
+  <g transform="translate(100, 500)">
+    <rect x="0" y="0" width="280" height="110" rx="16" fill="#ffffff" stroke="#121a3e" stroke-width="3"/>
+    <text x="20" y="36" font-family="sans-serif" font-size="14" font-weight="600" fill="#64748b">NET QUANTITY</text>
+    <text x="20" y="80" font-family="sans-serif" font-size="36" font-weight="800" fill="#0b1026">5 kg</text>
+    <text x="110" y="78" font-family="sans-serif" font-size="14" font-weight="500" fill="#64748b">(When Packed)</text>
+
+    <!-- MRP Box -->
+    <rect x="310" y="0" width="290" height="110" rx="16" fill="#ffffff" stroke="#121a3e" stroke-width="3"/>
+    <text x="330" y="34" font-family="sans-serif" font-size="13" font-weight="700" fill="#64748b">MAXIMUM RETAIL PRICE</text>
+    <text x="330" y="74" font-family="sans-serif" font-size="30" font-weight="800" fill="#b42318">₹ 285.00</text>
+    <text x="330" y="96" font-family="sans-serif" font-size="12" font-weight="600" fill="#0b1026">(INCL. OF ALL TAXES)</text>
+  </g>
+
+  <!-- USP & Batch / Date Section -->
+  <g transform="translate(100, 630)">
+    <rect x="0" y="0" width="600" height="70" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="24" y="30" font-family="sans-serif" font-size="13" font-weight="700" fill="#121a3e">UNIT SALE PRICE: ₹ 57.00 / kg</text>
+    <text x="24" y="52" font-family="sans-serif" font-size="13" font-weight="600" fill="#475569">PKD: 02/2025 | BATCH NO: LOT-AT-2025-B4 | USE WITHIN 90 DAYS</text>
+  </g>
+
+  <!-- Manufacturer Declaration -->
+  <g transform="translate(100, 720)">
+    <rect x="0" y="0" width="600" height="90" rx="12" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="20" y="26" font-family="sans-serif" font-size="12" font-weight="700" fill="#121a3e">MANUFACTURED &amp; PACKED BY:</text>
+    <text x="20" y="48" font-family="sans-serif" font-size="13" font-weight="600" fill="#0b1026">ITC Limited, 37 J.L. Nehru Road, Kolkata - 700071, West Bengal</text>
+    <text x="20" y="70" font-family="sans-serif" font-size="12" font-weight="500" fill="#64748b">FSSAI Lic. No. 10012031000085 · Country of Origin: India</text>
+  </g>
+
+  <!-- Consumer Care Box -->
+  <g transform="translate(100, 830)">
+    <rect x="0" y="0" width="600" height="90" rx="12" fill="#eff6ff" stroke="#3d5afe" stroke-width="2"/>
+    <text x="20" y="28" font-family="sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">CONSUMER CARE DETAILS (Rule 6(1)(e)):</text>
+    <text x="20" y="52" font-family="sans-serif" font-size="13" font-weight="600" fill="#0b1026">Executive - Consumer Care, ITC Limited, P.O. Box 592, Kolkata - 700071</text>
+    <text x="20" y="74" font-family="sans-serif" font-size="13" font-weight="700" fill="#1d4ed8">Toll Free: 1800-425-4444 | Email: itccares@itc.in</text>
+  </g>
+</svg>

@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&family=Geist:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-geist: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-geist-mono: 'Geist Mono', monospace;
+  --font-instrument: 'Instrument Serif', Georgia, serif;
+  --font-deva: 'Noto Sans Devanagari', sans-serif;
+
+  --color-canvas: #eef1f8;
+  --color-ink: #0b1026;
+  --color-ink-muted: #5d6680;
+  --color-navy: #121a3e;
+  --color-navy-900: #090e26;
+  --color-navy-700: #1f2a5e;
+  --color-navy-500: #3d5afe;
+  --color-saffron: #ff9a3c;
+  --color-india-green: #149c4a;
+  --color-line: rgba(15, 23, 42, 0.1);
+  --color-line-soft: rgba(15, 23, 42, 0.06);
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-geist);
+  letter-spacing: -0.01em;
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: 
+    radial-gradient(60rem 40rem at 8% -10%, rgba(99, 122, 255, 0.28), transparent 60%),
+    radial-gradient(48rem 36rem at 100% 0, rgba(72, 205, 230, 0.22), transparent 60%),
+    radial-gradient(50rem 40rem at 85% 100%, rgba(255, 170, 100, 0.18), transparent 60%),
+    radial-gradient(44rem 34rem at 0 95%, rgba(90, 210, 150, 0.16), transparent 60%),
+    linear-gradient(#f3f5fb 0%, #e9edf6 100%);
+  pointer-events: none;
+}
+
+/* Glassmorphism primitives */
+.glass {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 10px 30px -10px rgba(30, 41, 90, 0.08);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 16px 40px -12px rgba(30, 41, 90, 0.12);
+}
+
+.glass-dark {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.aurora-dark {
+  background-color: #090e26;
+  background-image: 
+    radial-gradient(40rem 26rem at 12% 0, rgba(79, 107, 255, 0.45), transparent 60%),
+    radial-gradient(34rem 24rem at 95% 20%, rgba(40, 190, 220, 0.3), transparent 60%),
+    radial-gradient(30rem 22rem at 70% 110%, rgba(255, 150, 70, 0.25), transparent 60%);
+}
+
+.btn-ink {
+  background-color: #0b1026;
+  color: #ffffff;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-ink:hover {
+  filter: brightness(1.2);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px -4px rgba(11, 16, 38, 0.35);
+}
+
+.tricolor-rule {
+  background: linear-gradient(90deg, #ff9a3c 33.3%, #ffffff 33.3%, #ffffff 66.6%, #149c4a 66.6%);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Animations */
+@keyframes scanLaser {
+  0% {
+    top: 5%;
+    opacity: 0.9;
+  }
+  50% {
+    top: 92%;
+    opacity: 1;
+  }
+  100% {
+    top: 5%;
+    opacity: 0.9;
+  }
+}
+
+.laser-scanner {
+  animation: scanLaser 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(93, 102, 128, 0.25);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(93, 102, 128, 0.45);
+}

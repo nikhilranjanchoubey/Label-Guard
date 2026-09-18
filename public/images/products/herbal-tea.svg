@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" fill="none">
+  <defs>
+    <linearGradient id="tea-bg" x1="0" y1="0" x2="800" y2="1000" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#f0fdf4"/>
+      <stop offset="60%" stop-color="#dcfce7"/>
+      <stop offset="100%" stop-color="#bbf7d0"/>
+    </linearGradient>
+    <linearGradient id="tea-green" x1="0" y1="0" x2="800" y2="0" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#15803d"/>
+      <stop offset="100%" stop-color="#166534"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="100" y="60" width="600" height="880" rx="30" fill="url(#tea-bg)" stroke="#121a3e" stroke-width="4"/>
+  <!-- Carton lid crease -->
+  <line x1="100" y1="180" x2="700" y2="180" stroke="#15803d" stroke-width="2" stroke-dasharray="8 6"/>
+
+  <rect x="130" y="90" width="540" height="80" rx="14" fill="url(#tea-green)"/>
+  <text x="400" y="142" font-family="'Instrument Serif', serif" font-size="44" font-weight="700" fill="#ffffff" text-anchor="middle">
+    ORGANIC INDIA
+  </text>
+
+  <text x="400" y="240" font-family="sans-serif" font-size="32" font-weight="800" fill="#14532d" text-anchor="middle">
+    TULSI SWEET ROSE TEA
+  </text>
+  <text x="400" y="270" font-family="sans-serif" font-size="16" font-weight="600" fill="#166534" text-anchor="middle">
+    STRESS RELIEVING &amp; MAGICAL · 100% CERTIFIED ORGANIC
+  </text>
+
+  <!-- Tea Leaf graphic -->
+  <g transform="translate(350, 290)">
+    <path d="M50 80 Q20 40 50 10 Q80 40 50 80 Z" fill="#22c55e" stroke="#15803d" stroke-width="3"/>
+    <path d="M50 75 L50 20" stroke="#15803d" stroke-width="2"/>
+  </g>
+
+  <!-- Net Quantity & MRP Panel -->
+  <g transform="translate(130, 420)">
+    <rect x="0" y="0" width="250" height="95" rx="12" fill="#ffffff" stroke="#15803d" stroke-width="2"/>
+    <text x="20" y="30" font-family="sans-serif" font-size="12" font-weight="700" fill="#166534">NET QUANTITY</text>
+    <text x="20" y="65" font-family="sans-serif" font-size="28" font-weight="800" fill="#0b1026">45 g</text>
+    <text x="20" y="85" font-family="sans-serif" font-size="11" font-weight="600" fill="#64748b">(25 Infusion Bags x 1.8g)</text>
+
+    <!-- MRP Box -->
+    <rect x="290" y="0" width="250" height="95" rx="12" fill="#ffffff" stroke="#15803d" stroke-width="2"/>
+    <text x="20" y="30" transform="translate(290, 0)" font-family="sans-serif" font-size="12" font-weight="700" fill="#166534">MAX. RETAIL PRICE</text>
+    <text x="20" y="65" transform="translate(290, 0)" font-family="sans-serif" font-size="28" font-weight="800" fill="#b91c1c">₹ 185.00</text>
+    <text x="20" y="85" transform="translate(290, 0)" font-family="sans-serif" font-size="11" font-weight="600" fill="#0f172a">INCL. OF ALL TAXES</text>
+  </g>
+
+  <!-- Dates & Batch -->
+  <g transform="translate(130, 535)">
+    <rect x="0" y="0" width="540" height="60" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="20" y="36" font-family="sans-serif" font-size="13" font-weight="700" fill="#121a3e">
+      MFG: 01/2025 | BATCH NO: LOT-OI-2025-01 | USP: ₹ 4.11 / g
+    </text>
+  </g>
+
+  <!-- Manufacturer Details -->
+  <g transform="translate(130, 615)">
+    <rect x="0" y="0" width="540" height="90" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+    <text x="20" y="26" font-family="sans-serif" font-size="12" font-weight="700" fill="#121a3e">MANUFACTURED &amp; PACKED BY:</text>
+    <text x="20" y="48" font-family="sans-serif" font-size="13" font-weight="600" fill="#0b1026">
+      Organic India Pvt. Ltd., Plot No. 266, Faizabad Road, Kamta, Lucknow - 226028, UP
+    </text>
+    <text x="20" y="70" font-family="sans-serif" font-size="11" font-weight="500" fill="#64748b">
+      Lic. No. 10012051000139 · Country of Origin: India
+    </text>
+  </g>
+
+  <!-- Consumer Care Box -->
+  <g transform="translate(130, 725)">
+    <rect x="0" y="0" width="540" height="80" rx="10" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+    <text x="20" y="26" font-family="sans-serif" font-size="12" font-weight="700" fill="#047857">CONSUMER CARE CELL:</text>
+    <text x="20" y="50" font-family="sans-serif" font-size="13" font-weight="700" fill="#065f46">
+      Toll Free: 1800-180-5105 | Email: care@organicindia.com
+    </text>
+  </g>
+</svg>

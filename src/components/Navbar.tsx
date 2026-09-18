@@ -1,0 +1,284 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
+import { useAuth } from "@/context/AuthContext";
+import { Logo } from "@/components/Logo";
+import {
+  Scan,
+  Bell,
+  Menu,
+  X,
+  FileCheck2,
+  AlertTriangle,
+  Info,
+  CheckCircle2,
+  UserCheck,
+} from "lucide-react";
+
+export const Navbar: React.FC = () => {
+  const pathname = usePathname();
+  const { t } = useLanguage();
+  const { user, role } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
+
+  // Structured Primary Navigation
+  const primaryLinks = [
+    { label: "Home", href: "/" },
+    { label: "Inspect", href: "/inspect" },
+    { label: "Dashboard", href: "/dashboard" },
+    { label: "Inspections", href: "/inspections" },
+    { label: "Products", href: "/products" },
+    { label: "Reports", href: "/reports" },
+  ];
+
+  // Structured Secondary Navigation
+  const secondaryLinks = [
+    { label: "Rules", href: "/rules" },
+    { label: "Analytics", href: "/analytics" },
+    { label: "Docs", href: "/docs" },
+  ];
+
+  const allNavLinks = [...primaryLinks, ...secondaryLinks];
+
+  const notifications = [
+    {
+      id: "n-1",
+      title: "Potential Non-Compliance Detected",
+      message: "Secondary price sticker pasted over MRP on Sunflower Oil 1L pouch.",
+      time: "10m ago",
+      type: "violation",
+    },
+    {
+      id: "n-2",
+      title: "Manual Inspection Recommended",
+      message: "Low OCR confidence (68%) on Herbal Green Tea packing date due to crease.",
+      time: "45m ago",
+      type: "warning",
+    },
+    {
+      id: "n-3",
+      title: "Inspection Report Signed",
+      message: "LG-2026-0101 (Aashirvaad Atta 5kg) report successfully finalized.",
+      time: "2h ago",
+      type: "success",
+    },
+  ];
+
+  return (
+    <div className="sticky top-0 z-40 px-3 pt-2 sm:px-4">
+      <div className="glass-strong mx-auto flex w-full max-w-7xl items-center justify-between gap-3 rounded-2xl px-3.5 py-2 sm:px-5">
+        {/* Brand Logo & Wordmark (never truncated) */}
+        <div className="shrink-0">
+          <Logo href="/" size="md" showBadge={true} showSubtitle={false} className="sm:hidden" />
+          <Logo href="/" size="md" showBadge={true} showSubtitle={true} className="hidden sm:flex" />
+        </div>
+
+        {/* Structured Desktop Navigation Links (Primary | Secondary) */}
+        <nav className="hidden items-center gap-1.5 rounded-full border border-line bg-white/70 px-2 py-1 lg:flex shadow-2xs">
+          {/* Primary Navigation */}
+          <div className="flex items-center gap-0.5">
+            {primaryLinks.map((item) => {
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(item.href);
+              const isInspect = item.href === "/inspect";
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-full px-2.5 py-1.5 text-xs font-semibold transition-all duration-150 ${
+                    isActive
+                      ? "bg-navy-950 text-white shadow-xs"
+                      : isInspect
+                      ? "text-blue-700 font-bold hover:bg-blue-50/80"
+                      : "text-slate-700 hover:bg-white hover:text-navy-950"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Hierarchy Divider */}
+          <div className="h-3.5 w-px bg-slate-300/80 mx-0.5" />
+
+          {/* Secondary Navigation (visually quieter) */}
+          <div className="flex items-center gap-0.5">
+            {secondaryLinks.map((item) => {
+              const isActive = pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`rounded-full px-2.5 py-1.5 text-xs font-medium transition-all duration-150 ${
+                    isActive
+                      ? "bg-navy-950 text-white shadow-xs font-semibold"
+                      : "text-slate-500 hover:bg-white hover:text-navy-900"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+
+        {/* Right Action Area: Scan Label CTA + User Role + Notifications */}
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          {/* Notifications button */}
+
+          <div className="relative">
+            <button
+              onClick={() => setNotificationsOpen(!notificationsOpen)}
+              className="relative flex size-8.5 items-center justify-center rounded-full border border-line bg-white/60 text-ink transition-colors hover:bg-white hover:text-navy-500"
+              title="Notifications"
+              aria-label="View notifications"
+            >
+              <Bell className="size-4" />
+              <span className="absolute right-1 top-1 size-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+            </button>
+
+            {/* Notifications Popover */}
+            {notificationsOpen && (
+              <div
+                className="glass-strong absolute right-0 top-full z-50 mt-2 w-80 rounded-3xl p-3 shadow-2xl"
+                onMouseLeave={() => setNotificationsOpen(false)}
+              >
+                <div className="flex items-center justify-between border-b border-line px-2 pb-2">
+                  <span className="text-xs font-bold text-ink">Recent Alerts</span>
+                  <span className="rounded-full bg-navy-500/10 px-2 py-0.5 text-[10px] font-semibold text-navy-500">
+                    3 New
+                  </span>
+                </div>
+                <div className="mt-2 space-y-2">
+                  {notifications.map((n) => (
+                    <div
+                      key={n.id}
+                      className="flex items-start gap-2.5 rounded-2xl bg-white/70 p-2.5 text-left transition-colors hover:bg-white"
+                    >
+                      {n.type === "violation" && (
+                        <AlertTriangle className="size-4 shrink-0 text-red-500 mt-0.5" />
+                      )}
+                      {n.type === "warning" && (
+                        <Info className="size-4 shrink-0 text-amber-500 mt-0.5" />
+                      )}
+                      {n.type === "success" && (
+                        <CheckCircle2 className="size-4 shrink-0 text-emerald-500 mt-0.5" />
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <p className="text-xs font-semibold text-ink">{n.title}</p>
+                        <p className="text-[11px] leading-4 text-ink-muted">{n.message}</p>
+                        <span className="mt-1 block text-[10px] text-ink-muted/70">{n.time}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-2 text-center">
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setNotificationsOpen(false)}
+                    className="block text-[11px] font-semibold text-navy-500 hover:underline"
+                  >
+                    View enforcement dashboard
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Primary Action CTA: Scan Label */}
+          <Link
+            href="/inspect"
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 text-xs font-bold shadow-sm transition-all hover:shadow"
+          >
+            <Scan className="size-3.5 text-blue-200" />
+            <span>Scan Label</span>
+          </Link>
+
+          {/* User Area: Prototype Inspector */}
+          <Link
+            href="/dashboard"
+            className="hidden xl:inline-flex items-center gap-2 rounded-full border border-line bg-white/80 py-1 pl-1.5 pr-2.5 text-xs font-medium text-ink transition-colors hover:bg-white shadow-2xs"
+            title={`Active Profile: ${user.name} (${role})`}
+          >
+            <div className="flex size-6 items-center justify-center rounded-full bg-navy-950 text-white font-bold text-[10px]">
+              <UserCheck className="size-3.5 text-emerald-400" />
+            </div>
+            <div className="text-left whitespace-nowrap">
+              <span className="block text-[11px] font-bold leading-tight text-navy-950">
+                Prototype Inspector
+              </span>
+              <span className="block text-[8.5px] text-slate-500 font-semibold tracking-wide uppercase">
+                DEMO ROLE
+              </span>
+            </div>
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="flex size-8.5 items-center justify-center rounded-full border border-line bg-white/60 text-ink lg:hidden hover:bg-white"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X className="size-4.5" /> : <Menu className="size-4.5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className="glass-strong mt-2 flex flex-col rounded-3xl p-4 shadow-xl lg:hidden">
+          <div className="flex items-center justify-between border-b border-line pb-3">
+            <div className="flex items-center gap-2">
+              <UserCheck className="size-4 text-navy-500" />
+              <span className="text-xs font-bold text-ink">Prototype Inspector</span>
+            </div>
+            <span className="rounded-full bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 text-[10px] font-bold text-blue-700">
+              Demo Enforcement
+            </span>
+          </div>
+
+          <div className="mt-3 grid grid-cols-2 gap-1.5">
+            {allNavLinks.map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`rounded-xl px-3 py-2 text-xs font-semibold transition-colors ${
+                    isActive
+                      ? "bg-navy-950 text-white"
+                      : "text-ink hover:bg-white/80"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mt-4 pt-3 border-t border-line">
+            <Link
+              href="/inspect"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-blue-600 py-2.5 text-xs font-bold text-white shadow-sm hover:bg-blue-700"
+            >
+              <Scan className="size-4 text-blue-200" />
+              <span>Scan Label</span>
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};

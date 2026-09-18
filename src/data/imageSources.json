@@ -1,0 +1,57 @@
+[
+  {
+    "commodity": "atta",
+    "productName": "Aashirvaad Superior MP Atta",
+    "brand": "Aashirvaad",
+    "barcode": "8909081001567",
+    "frontImage": "/products/atta/atta-front.jpg",
+    "backImage": "/products/atta/atta-back.jpg",
+    "source": "Open Food Facts (world.openfoodfacts.org)",
+    "license": "Creative Commons Attribution-ShareAlike 3.0 / ODbL",
+    "usage": "SIH 2026 Problem Statement 26034 Prototype Demonstration Only"
+  },
+  {
+    "commodity": "oil",
+    "productName": "refined sunflower oil",
+    "brand": "fortune",
+    "barcode": "8906007280242",
+    "frontImage": "/products/oil/oil-front.jpg",
+    "backImage": "/products/oil/oil-back.jpg",
+    "source": "Open Food Facts (world.openfoodfacts.org)",
+    "license": "Creative Commons Attribution-ShareAlike 3.0 / ODbL",
+    "usage": "SIH 2026 Problem Statement 26034 Prototype Demonstration Only"
+  },
+  {
+    "commodity": "tea",
+    "productName": "Desi Kahwa Green Tea",
+    "brand": "Girnar",
+    "barcode": "8901037010920",
+    "frontImage": "/products/tea/tea-front.jpg",
+    "backImage": "/products/tea/tea-back.jpg",
+    "source": "Open Food Facts (world.openfoodfacts.org)",
+    "license": "Creative Commons Attribution-ShareAlike 3.0 / ODbL",
+    "usage": "SIH 2026 Problem Statement 26034 Prototype Demonstration Only"
+  },
+  {
+    "commodity": "spices",
+    "productName": "Kurkuma Pulver",
+    "brand": "Everest",
+    "barcode": "8901786422012",
+    "frontImage": "/products/spices/spices-front.jpg",
+    "backImage": "/products/spices/spices-back.jpg",
+    "source": "Open Food Facts (world.openfoodfacts.org)",
+    "license": "Creative Commons Attribution-ShareAlike 3.0 / ODbL",
+    "usage": "SIH 2026 Problem Statement 26034 Prototype Demonstration Only"
+  },
+  {
+    "commodity": "biscuits",
+    "productName": "Parle G",
+    "brand": "Parle-G",
+    "barcode": "8901719100956",
+    "frontImage": "/products/biscuits/biscuits-front.jpg",
+    "backImage": "/products/biscuits/biscuits-back.jpg",
+    "source": "Open Food Facts (world.openfoodfacts.org)",
+    "license": "Creative Commons Attribution-ShareAlike 3.0 / ODbL",
+    "usage": "SIH 2026 Problem Statement 26034 Prototype Demonstration Only"
+  }
+]
